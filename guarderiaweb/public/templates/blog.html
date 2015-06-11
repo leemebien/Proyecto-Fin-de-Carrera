@@ -1,0 +1,22 @@
+<div class="row">
+    <div class="box">
+        <div class="col-lg-12">
+            <hr>
+            <h2 class="intro-text text-center">Company
+                <strong>blog</strong>
+            </h2>
+            <hr>
+        </div>
+        <div class="col-lg-12 text-center" ng-repeat="tipo in tipos">
+            <b> {{ tipo.id }} </b> - {{ tipo.clave }} - {{ tipo.nombre }} - {{ tipo.descripcion }} 
+        </div>
+        <div class="col-lg-12 text-center">
+            <ul class="pager">
+                <li class="previous"><a href="#">&larr; Older</a>
+                </li>
+                <li class="next"><a href="#">Newer &rarr;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
