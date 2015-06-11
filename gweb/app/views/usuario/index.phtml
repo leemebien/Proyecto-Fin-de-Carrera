@@ -1,0 +1,30 @@
+<?php
+
+echo $this->tag->form(array("usuario/register", 
+							"method" => "post"));
+
+echo $this->tag->textField("nombre");
+
+echo $this->tag->textField("password");
+
+echo $this->tag->selectStatic("estado", array("0" => "Inactivo",
+												"1" => "Activo"));
+
+echo $this->tag->submitbutton("Registrarse");
+
+echo $this->tag->endForm();
+
+
+
+
+echo $this->tag->form(array("usuario/login", 
+							"method" => "post"));
+
+echo $this->tag->textField("nombre");
+
+echo $this->tag->passwordField("password");
+
+echo $this->tag->submitbutton("Login");
+
+echo $this->tag->endForm();
+
