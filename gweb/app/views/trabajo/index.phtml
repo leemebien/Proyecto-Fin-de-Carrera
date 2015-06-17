@@ -1,0 +1,129 @@
+
+
+<?php include  '../app/parts/head.php'; ?>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+
+		$( "#dialogo_samu, #dialog_samu" ).dialog({
+			autoOpen: false,
+			modal: true,
+			show: {
+				effect: "blind",
+				duration: 300
+				},
+			hide: {
+				effect: "explode",
+				duration: 300
+				}/*,
+			close: function() {
+				$( this ).dialog( "close" );
+				}*/
+			});
+
+		$( "#opener_p, #opener_p2" ).click(function() {
+			$( "#dialogo_samu" ).dialog( "open" );
+		});
+
+
+		///////////////////////////////////////////////////////
+
+		$( "#catalog" ).accordion();
+    $( "#catalog li" ).draggable({
+      appendTo: "body",
+      helper: "clone"
+    });
+    $( "#cart ol" ).droppable({
+      activeClass: "ui-state-default",
+      hoverClass: "ui-state-hover",
+      accept: ":not(.ui-sortable-helper)",
+      drop: function( event, ui ) {
+        $( this ).find( ".placeholder" ).remove();
+        $( "<li></li>" ).text( ui.draggable.text() ).appendTo( this );
+      }
+    }).sortable({
+      items: "li:not(.placeholder)",
+      sort: function() {
+        // gets added unintentionally by droppable interacting with sortable
+        // using connectWithSortable fixes this, but doesn't allow you to customize active/hoverClass options
+        $( this ).removeClass( "ui-state-default" );
+      }
+    });
+
+		///////////////////////////////////////////////////////
+
+	});
+
+</script>
+
+
+<div id="samu" align="center"  style="background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;">
+	<div>
+		Zona de Trabajo
+
+		<div id="dialogo_samu" title="Basic dialog">
+			<P>
+				samuel dentro
+			</P>
+		</div>
+
+		<div id="dialog_samu" title="Basic dialog">
+			<P>
+				samuel fuera
+			</P>
+		</div>
+
+		<?php echo Phalcon\Tag::submitButton(array("Open Dialog dentro", "id" => "opener_p")); ?>
+		<?php echo Phalcon\Tag::submitButton(array("Open Dialog fuera", "id" => "opener_p2")); ?>
+	</div>
+
+
+---------------------------------------------------------------
+
+<div id="products">
+  <h1 class="ui-widget-header">Products</h1>
+  <div id="catalog">
+    <h2><a href="#">T-Shirts</a></h2>
+    <div>
+      <ul>
+        <li>Lolcat Shirt</li>
+        <li>Cheezeburger Shirt</li>
+        <li>Buckit Shirt</li>
+      </ul>
+    </div>
+    <h2><a href="#">Bags</a></h2>
+    <div>
+      <ul>
+        <li>Zebra Striped</li>
+        <li>Black Leather</li>
+        <li>Alligator Leather</li>
+      </ul>
+    </div>
+    <h2><a href="#">Gadgets</a></h2>
+    <div>
+      <ul>
+        <li>iPhone</li>
+        <li>iPod</li>
+        <li>iPad</li>
+      </ul>
+    </div>
+  </div>
+</div>
+ 
+<div id="cart">
+  <h1 class="ui-widget-header">Shopping Cart</h1>
+  <div class="ui-widget-content">
+    <ol>
+      <li class="placeholder">Add your items here</li>
+    </ol>
+  </div>
+</div>
+
+---------------------------------------------------------------
+
+</div>
+
+<br/>
+
+<?php include '../app/parts/foot.php'; ?>

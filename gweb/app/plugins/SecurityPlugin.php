@@ -19,6 +19,87 @@ class SecurityPlugin extends Plugin
 	 */
 	public function getAcl()
 	{
+		if(!isset($this->persistent->acl))
+		{
+			//Creamos la lista de accesos
+			$acl = new AclList();
+
+			//Por defecto la lista deniega el acceso
+			$acl->setDefaultAction(Acl::DENY);
+
+			//Creamos los diferentes roles
+			$roles = array('users' => new Role('Users'),
+							'guest' => new Role('Guest'));
+			//Los añadirmos a la lista
+			foreach ($roles as $role)
+			{
+				$acl->addRole($role);
+			}
+
+			//Indicamos las areas privadas
+			$privateResources = array('trabajo' => array('index'),
+										'trabajopadre' => array('index'));
+			/*$phql = "SELECT a.menu, (SELECT CONCAT('''',REPLACE(GROUP_CONCAT(b.action),',',''','''),'''')
+                						FROM menuwebaction b
+                						WHERE a.id = b.menuweb) as actions
+						FROM menuweb a
+    					WHERE a.private = 1
+    					ORDER BY a.id";
+			$privateResources = $this->modelsManager->executeQuery($phql);*/
+
+			//Añadimos las alreas
+			foreach ($privateResources as $resource => $actions)
+			{
+				$acl->addResource(new Resource($resource), $actions);
+			}
+
+			//Indicamos las areas publicas
+			$publicResources = array('index' => array('index'),
+									'about' => array('index'),
+									'blog' => array('index'),
+									'contact' => array('index'),
+									'usuario' => array('login', 'end'),
+									'errors' => array('show401', 'show404', 'show500'));
+			/*$phql = "SELECT a.menu, (SELECT CONCAT('''',REPLACE(GROUP_CONCAT(b.action),',',''','''),'''')
+                						FROM menuwebaction b
+                						WHERE a.id = b.menuweb) as actions
+						FROM menuweb a
+    					WHERE a.private = 0
+    					ORDER BY a.id";
+			$privateResources = $this->modelsManager->executeQuery($phql);*/
+
+			//Añadimos las alreas
+			foreach ($publicResources as $resource => $actions)
+			{
+				$acl->addResource(new Resource($resource), $actions);
+			}
+			
+			//Damos acceso a las areas publicas
+			foreach ($roles as $role)
+			{
+				foreach ($publicResources as $resource => $actions)
+				{
+					foreach ($actions as $action)
+					{
+						$acl->allow($role->getName(), $resource, $action);
+					}
+				}
+			}
+
+			//Damos acceso a las areas privadas
+			foreach ($privateResources as $resource => $actions)
+			{
+				foreach ($actions as $action)
+				{
+					$acl->allow('Users', $resource, $action);
+				}
+			}
+
+			//Asignamos la lista de accesos a objeto persistente
+			$this->persistent->acl = $acl;
+		}
+
+		return $this->persistent->acl;
 	}
 
 	/**
@@ -27,12 +108,12 @@ class SecurityPlugin extends Plugin
 	 * @param Event $event
 	 * @param Dispatcher $dispatcher
 	 */
-	public function beforeDispatcher(Event $event, Dispatcher $dispatcher)
+	public function beforeDispatch(Event $event, Dispatcher $dispatcher)
     {
     	$auth = $this->session->get('auth');
     	if(!$auth)
     	{
-    		$role = 'Guests';
+    		$role = 'Guest';
 		}else
 		{
 			$role = 'Users';

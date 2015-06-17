@@ -6,7 +6,8 @@ class UsuarioController extends ControllerBase
 	{
 		$this->session->set('auth',
 							array('id' => $user->id,
-									'name' => $user->nombre));
+									'name' => $user->nombre,
+                                    'rol' => $user->rol));
 	}
 
     public function indexAction()

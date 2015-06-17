@@ -9,31 +9,56 @@ use Phalcon\Mvc\User\Component;
  */
 class Elements extends Component
 {
-	private $_menuCabeceraPublica = array('navbar-nav' => array('index' => array('caption' => 'Home',
-																			'action' => 'index'),/*
-															'about' => array('caption' => 'About',
-																			'action' => 'index'),*/
-															'blog' => array('caption' => 'Blog',
-																			'action' => 'index'),
-															'contact' => array('caption' => 'Contact',
-																				'action' => 'index'),
-															'usuario' => array('caption' => 'Log In/Sign Up',
-																				'action' => 'login'),
-														)
-								);
+	private $_menuCabeceraPublica;
+    private $_menuCabeceraPrivado;
+    private $_menuCabeceraPrivadoPadre;
 
-	private $_menuCabeceraPrivado = array('navbar-nav' => array('index' => array('caption' => 'Home',
-																			'action' => 'index'),
-															'about' => array('caption' => 'About',
-																			'action' => 'index'),
-															'blog' => array('caption' => 'Blog',
-																			'action' => 'index'),
-															'contact' => array('caption' => 'Contact',
-																				'action' => 'index'),
-															'usuario' => array('caption' => 'Log In/Sign Up',
-																				'action' => 'end'),
-														)
-								);
+
+    public function initialize()
+    {
+        $this->_menuCabeceraPublica = array('navbar-nav' => array('index' => array('caption' => 'Home',
+                                                                                    'action' => 'index'),
+                                                                   'about' => array('caption' => 'About',
+                                                                                    'action' => 'index'),
+                                                                    'blog' => array('caption' => 'Blog',
+                                                                                    'action' => 'index'),
+                                                                    'contact' => array('caption' => 'Contact',
+                                                                                        'action' => 'index'),
+                                                                    'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                                        'action' => 'login'),
+                                                                )
+                                            );
+
+        $this->_menuCabeceraPrivado = array('navbar-nav' => array('index' => array('caption' => 'Home',
+                                                                                    'action' => 'index'),
+                                                                    'trabajo' => array('caption' => 'Trabajo',
+                                                                                        'action' => 'index'),
+                                                                    'about' => array('caption' => 'About',
+                                                                                    'action' => 'index'),
+                                                                    'blog' => array('caption' => 'Blog',
+                                                                                    'action' => 'index'),
+                                                                    'contact' => array('caption' => 'Contact',
+                                                                                        'action' => 'index'),
+                                                                    'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                                        'action' => 'login'),
+                                                                )
+                                            );
+
+        $this->_menuCabeceraPrivadoPadre = array('navbar-nav' => array('index' => array('caption' => 'Home',
+                                                                                        'action' => 'index'),
+                                                                        'trabajopadre' => array('caption' => 'Padres',
+                                                                                                'action' => 'index'),
+                                                                        'about' => array('caption' => 'About',
+                                                                                        'action' => 'index'),
+                                                                        'blog' => array('caption' => 'Blog',
+                                                                                        'action' => 'index'),
+                                                                        'contact' => array('caption' => 'Contact',
+                                                                                            'action' => 'index'),
+                                                                        'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                                            'action' => 'login'),
+                                                                    )
+                                                );
+    }
 
 
 	/**
@@ -44,15 +69,39 @@ class Elements extends Component
     public function getMenu()
     {
 
+        $this->initialize();
+
         $auth = $this->session->get('auth');
         if ($auth) {
-            $this->_menuCabeceraPrivado['navbar-nav']['usuario'] = array(
+            /*$this->_menuCabeceraPrivado['navbar-nav']['usuario'] = array(
                 //'caption' => 'Log Out',
                 'caption' => 'Log Out (' . $auth['name'] . ')',
                 //'caption' => $auth->name,
                 'action' => 'end'
             );
-            $_menu = $this->_menuCabeceraPrivado;
+            $_menu = $this->_menuCabeceraPrivado;*/
+
+switch ($auth['rol']) {
+case 5: // Barra de menu para padres
+$this->_menuCabeceraPrivadoPadre['navbar-nav']['usuario'] = array(
+//'caption' => 'Log Out',
+'caption' => 'Log Out (' . $auth['name'] . ')',
+//'caption' => $auth->name,
+'action' => 'end'
+);
+$_menu = $this->_menuCabeceraPrivadoPadre;
+break;
+
+default: // Barra de menu para el resto de trabajadores
+$this->_menuCabeceraPrivado['navbar-nav']['usuario'] = array(
+//'caption' => 'Log Out',
+'caption' => 'Log Out (' . $auth['name'] . ')',
+//'caption' => $auth->name,
+'action' => 'end'
+);
+$_menu = $this->_menuCabeceraPrivado;
+break;
+}
             $_chek = 0;
         } else {
             //unset($this->_menuCabecera['navbar-nav']['about']);
@@ -91,7 +140,7 @@ echo $this->tag->passwordField(array("password", "size" => 10));
 ?>
 </td></tr></table></td><td align="center">
 <?php
-echo $this->tag->submitButton(array($option['caption']));
+echo $this->tag->submitButton(array($option['caption'], "id" => "login"));
 ?>
 </td></tr></table>
 <?php
