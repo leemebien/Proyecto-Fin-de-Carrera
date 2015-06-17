@@ -433,6 +433,35 @@ CREATE TABLE dbguarderia.linealibrocontabilidad(
 	CONSTRAINT fk_linealibrocontabilidad_factura FOREIGN KEY (conceptof) REFERENCES factura(id),
 	CONSTRAINT fk_linealibrocontabilidad_nomina FOREIGN KEY (concepton) REFERENCES nomina(id)
 );
+/*----------------------------------------------------------------*/
+	/*Guarda cada uno de los menus de la web que existen*/
+CREATE TABLE dbguarderia.menuweb(
+	id INT AUTO_INCREMENT,
+	menu VARCHAR(100),
+	private BOOLEAN,
+	ordenaparicion INT, /* Indica en que orden van a aparecer los menus en la barra de menus. Si es cero entonces no aparece.*/
+	PRIMARY KEY (id)
+);
+
+	/*Guarda cada uno de los actions de cada uno de los menus de la web*/
+CREATE TABLE dbguarderia.menuwebaction(
+	id INT AUTO_INCREMENT,
+	action VARCHAR(100),
+	menuweb INT,
+	PRIMARY KEY (id),
+	CONSTRAINT fk_menuwebaction_menuweb FOREIGN KEY (menuweb) REFERENCES menuweb(id)
+);
+
+	/*Guarda cada uno de los menus de la web que existen segun el rol del usuario*/
+CREATE TABLE dbguarderia.menuwebrol(
+	id INT AUTO_INCREMENT,
+	menuweb INT,
+	rol INT,
+	PRIMARY KEY (id),
+	CONSTRAINT fk_menuwebrol_menuweb FOREIGN KEY (menuweb) REFERENCES menuweb(id),
+	CONSTRAINT fk_menuwebrol_rol FOREIGN KEY (rol) REFERENCES rol(id)
+);
+
 
 
 

@@ -420,3 +420,36 @@ INSERT INTO dbguarderia.linealibrocontabilidad(id, fecha, conceptop, conceptof, 
 		(4,'2015-04-29',null,null,2,"nomina trabajador",1022,0,1);
 
 
+/*----------------------------------------------------------------*/
+INSERT INTO dbguarderia.menuweb(id, menu, private, ordenaparicion)
+	VALUES(1,'index',0,1),
+		(2,'about',0,3),
+		(3,'blog',0,4),
+		(4,'contact',0,5),
+		(5,'usuario',0,0),
+		(6,'errors',0,0),
+		(7,'trabajo',1,2);
+
+
+INSERT INTO dbguarderia.menuwebaction(id, action, menuweb)
+	VALUES(1,'index',1),
+		(2,'index',2),
+		(3,'index',3),
+		(4,'index',4),
+		(5,'login',5),
+		(6,'end',5),
+		(7,'show401',6),
+		(8,'show404',6),
+		(9,'show500',6),
+		(10,'index',7);
+		
+
+INSERT INTO dbguarderia.menuwebrol(id, menuweb, rol)
+	VALUES(1,1,1),
+		(2,1,2),
+		(3,1,3),
+		(4,1,4),
+		(5,1,5);
+
+
+
