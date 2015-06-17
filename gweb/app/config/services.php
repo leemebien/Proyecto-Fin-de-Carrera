@@ -104,7 +104,7 @@ $di->set('dispatcher', function() use ($di) {
     //Enviar todos los eventos de Excpcion producidos en el Dispatcher al plugin de NotFount
     $eventsManager->attach('dispatch:beforeException', new NotFoundPlugin);
     //Enviar todos los eventos de Sesion producidos en el Dispatcher al plugin de Session
-    $eventsManager->attach('dispatch:beforeDispatcher', new SecurityPlugin);
+    $eventsManager->attach('dispatch:beforeDispatch', new SecurityPlugin);
     //Creamos el Dispacher
     $dispatcher = new PhDispatcher;
     //Asociamos el manejador de eventos al Dispacher
