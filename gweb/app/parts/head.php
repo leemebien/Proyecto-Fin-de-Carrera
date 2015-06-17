@@ -31,7 +31,7 @@
 <?php $this->assets->outputJs(); ?>
 <script>
 
-$(function() {
+$(document).ready(function() {
 
 $( "#dialog" ).dialog({
 autoOpen: false,
@@ -43,19 +43,19 @@ duration: 300
 hide: {
 effect: "explode",
 duration: 300
-},
+}/*,
 close: function() {
 $( this ).dialog( "close" );
-}
+}*/
 });
 
  
 /*$( "#login" ).click(function() {
 $( "#dialog" ).dialog( "open" );
 });*/
-/*$( "#opener" ).click(function() {
+$( "#opener" ).click(function() {
 $( "#dialog" ).dialog( "open" );
-});*/
+});
 });
 
 </script>
