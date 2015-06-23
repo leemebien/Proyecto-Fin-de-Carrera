@@ -39,13 +39,6 @@ class SecurityPlugin extends Plugin
 			//Indicamos las areas privadas
 			$privateResources = array('trabajo' => array('index'),
 										'trabajopadre' => array('index'));
-			/*$phql = "SELECT a.menu, (SELECT CONCAT('''',REPLACE(GROUP_CONCAT(b.action),',',''','''),'''')
-                						FROM menuwebaction b
-                						WHERE a.id = b.menuweb) as actions
-						FROM menuweb a
-    					WHERE a.private = 1
-    					ORDER BY a.id";
-			$privateResources = $this->modelsManager->executeQuery($phql);*/
 
 			//Añadimos las alreas
 			foreach ($privateResources as $resource => $actions)
@@ -60,13 +53,6 @@ class SecurityPlugin extends Plugin
 									'contact' => array('index'),
 									'usuario' => array('login', 'end'),
 									'errors' => array('show401', 'show404', 'show500'));
-			/*$phql = "SELECT a.menu, (SELECT CONCAT('''',REPLACE(GROUP_CONCAT(b.action),',',''','''),'''')
-                						FROM menuwebaction b
-                						WHERE a.id = b.menuweb) as actions
-						FROM menuweb a
-    					WHERE a.private = 0
-    					ORDER BY a.id";
-			$privateResources = $this->modelsManager->executeQuery($phql);*/
 
 			//Añadimos las alreas
 			foreach ($publicResources as $resource => $actions)

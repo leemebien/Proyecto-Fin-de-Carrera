@@ -8,8 +8,9 @@ class ControllerBase extends Controller
     {
         //Inicializamos los CSS
         $this->assets->addCss("css/bootstrap/bootstrap.min.css");
-        $this->assets->addCss("css/jqueryui/jquery-ui.css");
         $this->assets->addCss("css/business-casual.css");
+        $this->assets->addCss("css/jqueryui/jquery-ui.css");
+        //$this->assets->addCss("css/jqueryui/theme.css");
 
         //Inicializamos los JS 
         //$this->assets->addJs("js/jquery/jquery.js");

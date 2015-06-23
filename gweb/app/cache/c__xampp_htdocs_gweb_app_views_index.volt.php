@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Phalcon PHP Framework</title>
+		
+		<?php include  '../app/parts/head.php'; ?>
 
 	</head>
 	<body>
-		<?php echo $this->getContent(); ?>
+
+		<?php include  '../app/parts/menu.php'; ?>
+
+        <div class="container">
+
+			<?php echo $this->getContent(); ?>
+
+		</div>
+		<!-- /.container -->
+
+		<?php include '../app/parts/foot.php'; ?>
 
 	</body>
 </html>

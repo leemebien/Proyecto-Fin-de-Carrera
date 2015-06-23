@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Phalcon PHP Framework</title>
+		
+		<?php include  '../app/parts/head.php'; ?>
 
 	</head>
 	<body>
 
-<?php include  '../app/parts/head.php'; ?>
+		<?php include  '../app/parts/menu.php'; ?>
 
-		{{ content() }}
+        <div class="container">
 
-<?php include '../app/parts/foot.php'; ?>
+			{{ content() }}
+
+		</div>
+		<!-- /.container -->
+
+		<?php include '../app/parts/foot.php'; ?>
 
 	</body>
 </html>
