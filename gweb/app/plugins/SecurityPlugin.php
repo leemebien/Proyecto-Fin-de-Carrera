@@ -38,7 +38,10 @@ class SecurityPlugin extends Plugin
 
 			//Indicamos las areas privadas
 			$privateResources = array('trabajo' => array('index'),
-										'trabajopadre' => array('index'));
+										'trabajopadre' => array('index'),
+										'trabajoprofe' => array('index'),
+										'trabajoadmin' => array('index'),
+										'entidad' => array('index', 'operacionalumno'));
 
 			//Añadimos las alreas
 			foreach ($privateResources as $resource => $actions)
