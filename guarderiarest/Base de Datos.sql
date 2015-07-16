@@ -462,6 +462,23 @@ CREATE TABLE dbguarderia.menuwebrol(
 	CONSTRAINT fk_menuwebrol_rol FOREIGN KEY (rol) REFERENCES rol(id)
 );
 
+	/*Guarda la direccion url de cada una de las imagenes*/
+CREATE TABLE dbguarderia.imagenes(
+	id INT AUTO_INCREMENT,
+	nombre VARCHAR(100),
+	descripcion VARCHAR(100),
+	PRIMARY KEY (id)
+);
 
+	/*Guarda la relacion entre las imagenes y el resto de tablas*/
+CREATE TABLE dbguarderia.imagenesrelacion(
+	id INT AUTO_INCREMENT,
+	fecha DATETIME,
+	imagen INT,
+	entidad INT,
+	PRIMARY KEY (id, fecha, imagen, entidad),
+	CONSTRAINT fk_imagenesrelacion_imagenes FOREIGN KEY (imagen) REFERENCES imagenes(id),
+	CONSTRAINT fk_imagenesrelacion_entidad FOREIGN KEY (entidad) REFERENCES entidad(id)
+);
 
 

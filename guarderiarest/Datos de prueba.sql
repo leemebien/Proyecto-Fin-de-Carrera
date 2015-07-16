@@ -122,7 +122,8 @@ INSERT INTO dbguarderia.usuario(id, nombre, password, entidad, rol, estado)
 	VALUES(1,"dios","dios",1,1,true),
 		(2,"director","director",2,2,true),
 		(3,"administrativo","administrativo",3,3,true),
-		(4,"padre","padre",9,5,true);
+		(4,"padre","padre",9,5,true),
+		(5,"profe","profe",4,4,true);
 
 
 INSERT INTO dbguarderia.plato(id, nombre, descripcion, ingredientes)
