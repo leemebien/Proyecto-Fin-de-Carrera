@@ -8,9 +8,8 @@ switch (explode("/", $_SERVER['REQUEST_URI'])[2]) {
 	case 'index':
 
 		echo ' $(function() { 
-					$( "#dialog" ).dialog({ 
+					$( "#dialogInfoLogin" ).dialog({ 
 						autoOpen: false, 
-						modal: true, 
 						show: { 
 							effect: "blind", 
 							duration: 300 
@@ -19,10 +18,6 @@ switch (explode("/", $_SERVER['REQUEST_URI'])[2]) {
 							effect: "explode", 
 							duration: 300 
 						}
-					}); 
-					
-					$( "#opener" ).click(function() { 
-						$( "#dialog" ).dialog( "open" ); 
 					}); 
 
 				}); ';
@@ -137,10 +132,50 @@ switch (explode("/", $_SERVER['REQUEST_URI'])[2]) {
 				});';
 
 		break;
+		
+	case 'trabajoprofe':
+
+		echo '  $(function() {
+    				
+
+				});';
+
+		break;
+		
+	case 'trabajoadmin':
+	case 'entidad':
+
+		echo '  $(function() {
+    				$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    				$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+    				$( "#accordion" ).accordion();
+
+
+    				$( "#check" ).button();
+				    $( "#format" ).buttonset();
+
+				    $( "#check1" ).button({
+				      	text: false,
+				      	icons: {
+					        primary: "ui-icon-circle-triangle-n"
+				      	}
+				    });
+
+				    $( "#check2" ).button({
+				      	text: false,
+				      	icons: {
+					        primary: "ui-icon-circle-triangle-s"
+				      	}
+				    });
+
+				});';
+
+		break;
 	
 	default:
 
-		echo 'document.write(document.URL.split("/").reverse()[1]);';
+		//echo 'document.write(document.URL.split("/").reverse()[1]);';
 	
 		break;
 }

@@ -29,4 +29,7 @@
 <!-- Script para JQueryUI -->
 <?php include '../app/parts/script.php'; ?>
 
+<!-- Style -->
+<?php include  '../app/parts/style.php'; ?>
+
 
