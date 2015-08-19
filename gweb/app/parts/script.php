@@ -143,8 +143,30 @@ switch (explode("/", $_SERVER['REQUEST_URI'])[2]) {
 		break;
 		
 	case 'trabajoadmin':
-	case 'entidad':
 
+		echo ' $(function() {
+    				$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
+    				$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
+
+					$( "#selectable" ).selectable({
+					    stop: function() {
+					        var result = $( "#select-result" ).empty();
+					        $( ".ui-selected", this ).each(function() {
+
+								var sel = $( "#selectable li div div #ui-selected" );
+
+					          	var index = $( "#selectable li" ).index( this );
+					          	result.append( " #" + ( index + 1 ) );
+					        });
+
+					    }
+					});
+
+				});';
+		break;
+
+	case 'entidad':
+/*
 		echo '  $(function() {
     				$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
     				$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
@@ -170,7 +192,7 @@ switch (explode("/", $_SERVER['REQUEST_URI'])[2]) {
 				    });
 
 				});';
-
+*/
 		break;
 	
 	default:

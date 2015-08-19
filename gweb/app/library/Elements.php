@@ -255,7 +255,7 @@ class Elements extends Component
 
         if ($auth) 
         {
-            switch ($auth['centro']) {
+/*            switch ($auth['centro']) {
                 case 1: 
                     echo 'Dirección 1';
                     break;
@@ -269,9 +269,9 @@ class Elements extends Component
                     break;
 
                 default: 
-                    echo '3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890';
-                    break;
-            }
+*/                    echo '3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890';
+//                    break;
+//            }
         }
         else
         {
@@ -417,12 +417,27 @@ class Elements extends Component
 
             case 'alumno':
 
-                $entidad = Entidad::find();
+                $entidadAlumnos = Entidad::find("tipo = 7");
 
-echo "<style>
+                echo "<div>";
+                    echo "<span id='select-result'>none</span>";
+                echo "</div";
 
+                echo "<div class='scroll'>";
+                    echo "<ol id='selectable'>";
+                        foreach ($entidadAlumnos as $entidadAlumno)
+                        {
+                            echo "<li class='ui-widget-content'>";
+                                echo "<div id='contenedor'>";
+                                    echo "<div><img src='http://www.imagenesbonitas.name/covers/preview/imagenes-divertidas-fue-el.JPG' alt='imagen de prueba' width='100' height='100'></div>";
+                                    echo "<div id= '", $entidadAlumno->id, "' >", $entidadAlumno->apellido1, " ", $entidadAlumno->apellido2, ", ", $entidadAlumno->nombre, "</div>";
+                                echo "</div>";
+                            echo "</li>";
+                        }
+                    echo "</ol>";
+                echo "</div>";
 
-
+/*echo "<style>
 
 th:last-child, td:last-child {
   width: 7%;
@@ -430,11 +445,16 @@ th:last-child, td:last-child {
   border-right: 0 none;
   padding-left: 0;
 }
-
+                    
+#selectable tbody tr .ui-selecting { color: #FECA40; }
+#selectable tbody tr .ui-selected { background: red; }
 
 </style>";
+
+
+
                 echo "<div class='table-responsive' >";
-                    echo "<table border=1 style='background: #15BFCC; table-layout: fixed; margin: 1rem auto; width: 98%; box-shadow: 0 0 4px 2px rgba(0,0,0,.4); border-collapse: collapse; border: 1px solid rgba(0,0,0,.5); border-top: 0 none;'>";
+                    echo "<table id='selectable' border=1 style='background: #15BFCC; table-layout: fixed; margin: 1rem auto; width: 98%; box-shadow: 0 0 4px 2px rgba(0,0,0,.4); border-collapse: collapse; border: 1px solid rgba(0,0,0,.5); border-top: 0 none;'>";
                         echo "<thead style='background: #FF7361; text-align: center; z-index: 2;'>";
                             echo "<tr style='display: block; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,.6);'>";
                                 echo "<th data-campo='imagen' style='width: 25%; float:left; border-right: 2px solid rgba(0,0,0,.2); padding: .7rem 0; font-size: 1.5rem; font-weight: normal; font-variant: small-caps;'>Imagen</th>";
@@ -442,17 +462,20 @@ th:last-child, td:last-child {
                             echo "</tr>";
                         echo "</thead>";
                         echo "<tbody style='display: block; height: calc(50vh - 1px); min-height: calc(200px + 1 px); overflow-Y: scroll; color: #000;'>";
-                            for ($i=0; $i < 10; $i++)
+                            //for ($i=0; $i < 10; $i++)
+                            foreach ($entidadAlumnos as $entidadAlumno)
                             {
-                                echo "<tr style='display: block; overflow: hidden;'>";
+                                echo "<tr class='ui-widget-content' style='display: block; overflow: hidden;'>";
+                                    echo "<td id= 'id", $entidadAlumno->id, "' style='display: none;'>", $entidadAlumno->id, "</td>";
                                     echo "<td data-campo='imagen' style='width: 25%; float:left;'><img src='http://www.imagenesbonitas.name/covers/preview/imagenes-divertidas-fue-el.JPG' alt='imagen de prueba' width='100' height='100'></td>";
-                                    echo "<td data-campo='apellidonombre' style='width: 75%; float:left;'>Morales Mangas, Samuel</td>";
+                                    //echo "<td data-campo='apellidonombre' style='width: 75%; float:left;'>Morales Mangas, Samuel</td>";
+                                    echo "<td data-campo='apellidonombre' style='width: 75%; float:left;'>", $entidadAlumno->apellido1, " ", $entidadAlumno->apellido2, ", ", $entidadAlumno->nombre, "</td>";
                                 echo "</tr>";
                             }
                         echo "</tbody>";
                     echo "</table>";
                 echo "</div>";
-
+*/
                 break;
             
             default:
