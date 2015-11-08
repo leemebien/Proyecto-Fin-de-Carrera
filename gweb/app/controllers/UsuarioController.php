@@ -276,5 +276,19 @@ class UsuarioController extends ControllerBase
         return $this->forward('index/index');
     }
 
+
+    /**
+    * Mantenimiento de los usuarios
+    */
+    public function ajaxMantenimiento()
+    {            
+        //deshabilitamos la vista para peticiones ajax
+        $this->view->disable();
+
+
+        $this->flash->error('samu');  
+        return $this->forward('trabajoadmin/index');
+    }
+
 }
 

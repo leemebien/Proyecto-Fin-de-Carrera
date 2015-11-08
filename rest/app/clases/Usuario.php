@@ -245,4 +245,23 @@ class Usuario extends ClaseAbstracta
         return $arrayUsuario;
     }
 
+    /**
+    * Comprobar que email existe
+    */
+    public function existeEmail($email)
+    {
+        $resultado = false;
+        $usuario = Usuarios::findFirst( array('email = :email:',
+                                                'bind' => array ( 'email' => $email
+                                                                ) 
+                                            )
+                                    );
+        
+        if($usuario != false)
+        {
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
 }

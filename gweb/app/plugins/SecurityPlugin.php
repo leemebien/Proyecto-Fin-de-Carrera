@@ -40,7 +40,8 @@ class SecurityPlugin extends Plugin
 			$privateResources = array('trabajo' => array('index'),
 										'trabajopadre' => array('index'),
 										'trabajoprofe' => array('index'),
-										'trabajoadmin' => array('index'),
+										'trabajoadmin' => array('index', 'ajaxUsuario'),
+										'usuario' => array('ajaxMantenimiento'),
 										'entidad' => array('index', 'operacionalumno'));
 
 			//Añadimos las alreas

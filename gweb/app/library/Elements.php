@@ -408,16 +408,38 @@ class Elements extends ComponentBase
             case 'userRegister':
 
                 echo $this->tag->form(array("usuario/register", 
-                                                "method" => "post"));
-                echo 'Nombre:';
+                                                "method" => "post",
+                                                "style" => "text-align: center"));
 
-                echo $this->tag->textField("nombre");
+                echo "<div class='form-group' style='width: 100%; height: 20px;'>
+                    <label for='userRegEmail'>Email: </label>";
+
+                echo $this->tag->textField(array("nombre",
+                                                "id" => "userRegEmail"));
+
+                echo "</div>";
                 
-                echo 'Password:';
+                echo "<div class='form-group' style='width: 100%; height: 20px;'>
+                    <label for='userRegEmail'>Password: </label>";
 
-                echo $this->tag->textField("password");
 
-                echo $this->tag->submitbutton("Registrarse");
+                echo $this->tag->textField(array("password",
+                                                "id" => "userRegPass"));
+
+                echo "</div>";
+
+//                echo $this->tag->submitbutton("Registrarse");
+/*                echo "<a href='#' class='btn btn-success add' id='Registrarse' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Registrarse</a>";
+*/
+                echo $this->tag->submitbutton(array("Registrarse",
+                                                    "class" => "btn btn-success add",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
 
                 echo $this->tag->endForm();
 
@@ -425,9 +447,55 @@ class Elements extends ComponentBase
 
             case 'usuario':
 
-                echo 'Formulario alumno';
+                $auth = $this->session->get('auth');
+                $usuario = $auth['user'];
+                $sesion = $auth['sesion'];
 
-                echo $this->tag->form(array("usuario/ xxxxxxx register", 
+                $datoenvio = new Datoenvio();
+                $dato = $datoenvio->enviarDatos($sesion, $usuario);
+
+                $data = array('dato' => $dato
+                                ,'status' => 'TO_GETLISTROL'
+                                ,'message' => 'Obtener listado posibles roles.');
+
+                $json = json_encode($data);
+
+                //Obtenemos la url
+                $url = 'http://localhost/rest/api/roles/getlist/';
+
+                //Creamos el flujo
+                $opciones = array('http' => array('method' => "POST",
+                                                    'header' => 'Content-type: application/json',
+                                                    'content' => $json,
+                                                    'timeout' => 60)
+                                );
+
+                $contexto = stream_context_create($opciones);
+
+                //Realizamos la llamada al API REST y Obtenemos la respuesta
+                $json = file_get_contents($url, false, $contexto);
+
+                //Decodificamos el JSON
+                $data = json_decode($json);
+
+                //Desmontamos el JSON
+                $dato = $data->dato;
+
+                //Desmontamos los datos de envio
+                $datoenvio->obtenerDatos($dato);
+
+                //Obtenemos la Sesion y la informacion
+                $sesion = $datoenvio->getSesion();
+                $arrayRoles = $datoenvio->getDato();
+//$this->flash->error($arrayRoles[1]->getNombre());  
+
+                /*-------------------------------------------------------
+
+                -------------------------------------------------------*/
+
+//                echo 'Formulario usuario';
+
+                echo $this->tag->form(array("usuario/ajaxMantenimiento", 
                                                 "method" => "post",
                                                 "class" => "table-responsive",
                                                 "style" => "height: 300px"));
@@ -445,17 +513,19 @@ class Elements extends ComponentBase
                     <label for='usuarioInputActive'>Activo</label>                    
                     <br />";
 
-                echo $this->tag->checkField(array("usuarioInputActive", 
-                                                    "value" => "1"));
+                echo $this->tag->selectStatic("usuarioInputActive",
+                                                array("0" => "Inactivo", 
+                                                        "1" => "Activo"));
 
                 echo "</div>";
 
                 echo "<div class='form-group' style='width: 50%; float: left; text-align: left; height: 50px;'>
                     <label for='usuarioInputPass1'>Password</label>";
 
-                echo $this->tag->emailField(array("id" => "usuarioInputPass1",
+                echo $this->tag->passwordField(array("id" => "usuarioInputPass1",
                                                     "class" => "form-control",
-                                                    "placeholder" => "Password"));
+                                                    "placeholder" => "Password",
+                                                    "maxlength" => "20"));
 
                 echo "</div>";
 
@@ -463,16 +533,20 @@ class Elements extends ComponentBase
                     <label for='usuarioInputRol'>Rol</label>
                     <br />";
 
+                $arol = array();
+                foreach ($arrayRoles as $r) 
+                {
+                    $arol[$r->getId()]=$r->getNombre();
+                }
                 echo $this->tag->selectStatic("usuarioInputRol",
-                                                array("A" => "Active", 
-                                                        "I" => "Inactive"));
+                                                $arol);
 
                 echo "</div>";
 
                 echo "<div class='form-group' style='width: 50%; float: left; text-align: left; height: 50px;'>
                     <label for='usuarioInputPass2'>Confirmación de Password</label>";
 
-                echo $this->tag->emailField(array("id" => "usuarioInputPass2",
+                echo $this->tag->passwordField(array("id" => "usuarioInputPass2",
                                                     "class" => "form-control",
                                                     "placeholder" => "Confirmar Password"));
 
@@ -490,10 +564,78 @@ class Elements extends ComponentBase
 
                 echo "<div class='form-group' style='float: center; text-align: center; height: 50px;'>
                     <br />";
+/*
+                echo $this->tag->submitbutton(array("Añadir",
+                                                "id" => "usuario_A",
+                                                "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
 
-                echo $this->tag->submitbutton("Añadir");
-                echo $this->tag->submitbutton("Modificar");
-                echo $this->tag->submitbutton("Eliminar");
+                echo "<a href='#' class='btn btn-success add pull-right' onclick='crudPhalcon.add()'>Añadir post</a>";
+
+                echo "<a href='#' class='btn btn-success add' id='usuario_A' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Añadir</a>";
+*/
+                echo $this->tag->submitbutton(array("Añadir",
+                                                    "id" => "usuario_A",
+                                                    "class" => "btn btn-success add",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+/*
+                echo $this->tag->submitbutton(array("Modificar",
+                                                "id" => "usuario_M",
+                                                "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+
+                echo " <a href='#'' class='btn btn-info editar' 
+                        onclick='crudPhalcon.edit(" + echo htmlentities(json_encode($post))  + ")'>
+                            Editar
+                        </a>";
+                        
+                echo "<a href='#' class='btn btn-info editar' id='usuario_M' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Editar</a>";
+*/
+                echo $this->tag->submitbutton(array("Editar",
+                                                    "id" => "usuario_M",
+                                                    "class" => "btn btn-info editar",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+/*
+                echo $this->tag->submitbutton(array("Eliminar",
+                                                "id" => "usuario_E",
+                                                "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+
+                echo "<a href='#' class='btn btn-danger eliminar' 
+                        onclick='crudPhalcon.delete(" + echo htmlentities(json_encode($post))  + ")'> 
+                            Eliminar
+                        </a>";
+
+                echo "<a href='#' class='btn btn-danger eliminar' id='usuario_E' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Eliminar</a>";
+*/
+                echo $this->tag->submitbutton(array("Eliminar",
+                                                    "id" => "usuario_E",
+                                                    "class" => "btn btn-danger eliminar",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
 
                 echo "</div>";
 
@@ -624,7 +766,7 @@ return $this->forward('index/index');
 
                 if($data->status == 'OK')
                 {
-                    echo "Listado alumno";
+//                    echo "Listado alumno";
 
                     echo "<table border=0 style='width: 816px;' class='table table-hover table-responsive'>
                         <thead style='display: table-header-group; vertical-align: middle; border-color: inherit;'>
@@ -635,7 +777,7 @@ return $this->forward('index/index');
                             <th style='width: 116px;'>Active</th>
                         </tr>
                         </thead>
-                        <tbody id='listaUsuarios' style='display: block; height: 400px; overflow: auto; width: 100%;'>";
+                        <tbody id='listaUsuarios' style='display: block; height: 200px; overflow: auto; width: 100%;'>";
 
                     $i=0;
 
@@ -675,23 +817,38 @@ $(function(){
         event.preventDefault();
         
         var busqueda = $(this).attr('data-email');
-        $('#usuarioInputEmail').val($(this).data('email'));
 
         $.ajax({
-            url: 'Script_a.php',
+            url: '";
+//Script_a.php
+echo $this->url->get('trabajoadmin/ajaxUsuario');
+echo "',
             type: 'POST',
             dataType: 'json',
-            data: { action: 'getUsuario', email: busqueda },
+            data: { action: 'getDataUsuario', email: busqueda },
             cache: false
         })
         .done( function( resultado ) {
-            alert(resultado.message);
             console.log('success');
-            console.log(resultado.success);
+            console.log(resultado);
+            console.log(resultado.email);
+            console.log(resultado.pass);
+            console.log(resultado.rol);
+            console.log(resultado.active);
+            console.log(resultado.asignado);
+            $('#usuarioInputEmail').val(resultado.email);
+            $('#usuarioInputPass1').val(resultado.pass);
+            $('#usuarioInputRol').val(resultado.rol);
+            $('#usuarioInputActive').val(resultado.active);
+            $('#usuarioInputUsuario').val(resultado.asignado);
         })
         .fail( function(resultado) {
             console.log('error');
-            console.log(resultado);
+            $('#usuarioInputEmail').val('');
+            $('#usuarioInputPass1').val('');
+            $('#usuarioInputRol').val('');
+            $('#usuarioInputActive').val('');
+            $('#usuarioInputUsuario').val('');
         })
         .always( function() {
             console.log('complete');
