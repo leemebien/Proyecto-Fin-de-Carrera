@@ -41,6 +41,7 @@ class SecurityPlugin extends Plugin
 										'trabajopadre' => array('index'),
 										'trabajoprofe' => array('index'),
 										'trabajoadmin' => array('index', 'ajaxUsuario'),
+										'trabajoSU' => array('index'),
 										'usuario' => array('ajaxMantenimiento'),
 										'entidad' => array('index', 'operacionalumno'));
 

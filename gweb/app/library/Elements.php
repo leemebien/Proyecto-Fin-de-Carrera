@@ -12,6 +12,7 @@ class Elements extends ComponentBase
     private $_menuCabeceraPrivadoPadre;
     private $_menuCabeceraPrivadoProfe;
     private $_menuCabeceraPrivadoAdmin;
+    private $_menuCabeceraPrivadoSU;
 
 
     public function initialize()
@@ -88,6 +89,21 @@ class Elements extends ComponentBase
                                                                                             'action' => 'login'),
                                                                     )
                                                 );
+
+        $this->_menuCabeceraPrivadoSU = array('navbar-nav' => array('index' => array('caption' => 'Home',
+                                                                                    'action' => 'index'),
+                                                                    'trabajoSU' => array('caption' => 'Super User',
+                                                                                            'action' => 'index'),
+                                                                    'about' => array('caption' => 'About',
+                                                                                    'action' => 'index'),
+                                                                    'blog' => array('caption' => 'Blog',
+                                                                                    'action' => 'index'),
+                                                                    'contact' => array('caption' => 'Contact',
+                                                                                        'action' => 'index'),
+                                                                    'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                                        'action' => 'login'),
+                                                                )
+                                            );
     }
 
 
@@ -112,6 +128,16 @@ class Elements extends ComponentBase
             $_menu = $this->_menuCabeceraPrivado;*/
 
             switch ($auth['rol']) {
+                case 2: // Barra de menu para administrativos
+                    $this->_menuCabeceraPrivadoSU['navbar-nav']['usuario'] = array(
+                    //'caption' => 'Log Out',
+                    'caption' => 'Log Out (' . $auth['name'] . ')',
+                    //'caption' => $auth->name,
+                    'action' => 'end'
+                    );
+                    $_menu = $this->_menuCabeceraPrivadoSU;
+                    break;
+
                 case 3: // Barra de menu para administrativos
                     $this->_menuCabeceraPrivadoAdmin['navbar-nav']['usuario'] = array(
                     //'caption' => 'Log Out',

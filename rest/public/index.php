@@ -43,6 +43,21 @@ try {
     include __DIR__ . "/../app/rest/Roles.php";
 
     /**
+    * Incluimos las instruccion para la tabla Fotos
+    */
+    include __DIR__ . "/../app/rest/Fotos.php";
+
+    /**
+    * Incluimos las instruccion para la tabla Tipos
+    */
+    include __DIR__ . "/../app/rest/Tipos.php";
+
+    /**
+    * Incluimos las instruccion para la tabla Personas
+    */
+    include __DIR__ . "/../app/rest/Personas.php";
+
+    /**
     * Incluimos las instruccion para la tabla Alumnos
     */
     include __DIR__ . "/../app/rest/Alumnos.php";
