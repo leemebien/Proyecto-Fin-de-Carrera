@@ -92,7 +92,7 @@ class Elements extends ComponentBase
 
         $this->_menuCabeceraPrivadoSU = array('navbar-nav' => array('index' => array('caption' => 'Home',
                                                                                     'action' => 'index'),
-                                                                    'trabajoSU' => array('caption' => 'Super User',
+                                                                    'trabajoSU' => array('caption' => 'S.U.',
                                                                                             'action' => 'index'),
                                                                     'about' => array('caption' => 'About',
                                                                                     'action' => 'index'),
@@ -521,8 +521,8 @@ class Elements extends ComponentBase
 
 //                echo 'Formulario usuario';
 
-                echo $this->tag->form(array("usuario/ajaxMantenimiento", 
-                                                "method" => "post",
+                echo $this->tag->form(array("usuario/mantenimiento", 
+                                                "method" => "POST",
                                                 "class" => "table-responsive",
                                                 "style" => "height: 300px"));
 

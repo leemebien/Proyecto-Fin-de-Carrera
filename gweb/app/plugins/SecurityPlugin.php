@@ -42,7 +42,7 @@ class SecurityPlugin extends Plugin
 										'trabajoprofe' => array('index'),
 										'trabajoadmin' => array('index', 'ajaxUsuario'),
 										'trabajoSU' => array('index'),
-										'usuario' => array('ajaxMantenimiento'),
+										'usuario' => array('mantenimiento'),
 										'entidad' => array('index', 'operacionalumno'));
 
 			//Añadimos las alreas

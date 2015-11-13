@@ -280,14 +280,137 @@ class UsuarioController extends ControllerBase
     /**
     * Mantenimiento de los usuarios
     */
-    public function ajaxMantenimiento()
+    public function mantenimientoAction()
     {            
-        //deshabilitamos la vista para peticiones ajax
-        $this->view->disable();
+//        //deshabilitamos la vista para peticiones ajax
+//        $this->view->disable();
+     
+        //si es una petición post
+        if($this->request->isPost() == true) 
+        {
+            $auth = $this->session->get('auth');
+            $usuario = $auth['user'];
+            $sesion = $auth['sesion'];
+
+            $paso = false;
+$this->flash->error('->' . isset($_POST['usuario_M']) . '<-');  
+return $this->forward('trabajoadmin/index');
+
+            if(isset($_POST['usuario_A']))
+            {
+                $email = $this->request->getPost('usuarioInputEmail');
+                $password = $this->security->hash($this->request->getPost('usuarioInputPass1'));
+                $active = $this->request->getPost('usuarioInputActive');
+                $rol = $this->request->getPost('usuarioInputRol');
+                $persona = $this->request->getPost('usuarioInputUsuario');
+
+                $valor['email'] = $email;
+                $valor['password'] = $password;
+                $valor['active'] = $active;
+                $valor['rol'] = $rol;
+                $valor['persona'] = $persona;
+
+                //Obtenemos la url
+                $url = 'http://localhost/rest/api/usuarios/addusuario/';
+
+                $paso = true;
+            }
+                
+            if(isset($_POST['usuario_M']))
+            {
+                $email = $this->request->getPost('usuarioInputEmail');
+                $password = $this->security->hash($this->request->getPost('usuarioInputPass1'));
+                $active = $this->request->getPost('usuarioInputActive');
+                $rol = $this->request->getPost('usuarioInputRol');
+                $persona = $this->request->getPost('usuarioInputUsuario');
+
+                $valor['email'] = $email;
+                $valor['password'] = $password;
+                $valor['active'] = $active;
+                $valor['rol'] = $rol;
+                $valor['persona'] = $persona;
+
+                //Obtenemos la url
+                $url = 'http://localhost/rest/api/usuarios/updusuario/';
+
+                $paso = true;
+            }
+
+            if(isset($_POST['usuario_E']))
+            {
+                $email = $this->request->getPost('usuarioInputEmail');
+
+                $valor = $email;
+
+                //Obtenemos la url
+                $url = 'http://localhost/rest/api/usuarios/delusuario/';
+
+                $paso = true;
+            }
+/*
+            if($paso)
+            {
 
 
-        $this->flash->error('samu');  
-        return $this->forward('trabajoadmin/index');
+                $datoenvio = new Datoenvio();
+                $dato = $datoenvio->enviarDatos($sesion, $valor);
+
+                $data = array('dato' => $dato
+                                ,'status' => 'TO_ACTIONUSER'
+                                ,'message' => 'Accciones con usuario.');
+
+                $json = json_encode($data);
+/*
+                //Obtenemos la url
+                $url = 'http://localhost/rest/api/sesiones/actualizarSesion/';
+*//*
+                //Creamos el flujo
+                $opciones = array('http' => array('method' => "POST",
+                                                    'header' => 'Content-type: application/json',
+                                                    'content' => $json,
+                                                    'timeout' => 60)
+                                );
+
+                $contexto = stream_context_create($opciones);
+
+                //Realizamos la llamada al API REST y Obtenemos la respuesta
+                $json = file_get_contents($url, false, $contexto);
+//$this->flash->error($url);  
+//return $this->forward('trabajoadmin/index');
+//}
+    
+                //Decodificamos el JSON
+                $data = json_decode($json);
+
+                //Desmontamos el JSON
+                $dato = $data->dato;
+
+                //Desmontamos los datos de envio
+                $datoenvio->obtenerDatos($dato);
+
+                //Obtenemos la Sesion y la informacion
+                $sesion = $datoenvio->getSesion();
+                $valor = $datoenvio->getDato();
+
+                if($data->status != 'OK')
+                {
+                    $this->session->remove('auth');
+                    $this->flash->error('Error en nombre/password');  
+                    return $this->forward('index/index');
+                } 
+            }
+            else
+            {
+                $this->flash->error('No se ha realizado ningun cambio.');  
+                return $this->forward('trabajoadmin/index');
+            }
+
+            $this->flash->success('Cambios realizados.');  
+            return $this->forward('trabajoadmin/index');
+    */
+$this->flash->error($url);  
+return $this->forward('trabajoadmin/index');
+        }
     }
 
 }
