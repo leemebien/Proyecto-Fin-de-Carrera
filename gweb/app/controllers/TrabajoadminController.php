@@ -78,7 +78,7 @@ class TrabajoadminController extends ControllerBase
 		}
     }
 
-
+/*
     Public function ajaxUsuarioAction()
     {
 			
@@ -143,7 +143,7 @@ class TrabajoadminController extends ControllerBase
 					'datos'   => $json 
 				);
 	        	-------------------------------------------------------*/
-
+/*
 	        	$this->response->setJsonContent($resultado);
 
 	        	$this->response->setStatusCode(200, "OK");
@@ -152,4 +152,5 @@ class TrabajoadminController extends ControllerBase
 	        }
 	    }
 	}
+*/
 }

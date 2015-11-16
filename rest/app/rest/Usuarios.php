@@ -20,7 +20,8 @@
 			$data[] = array('id' => $usuario->idusuarios,
 							'user' => $usuario->emaill,
 							'pass' => $usuario->pass,
-							'active' => $usuario->active);
+							'active' => $usuario->active,
+							'idrol' => $usuario->idrol);
 		}
 
 		//Codificamos en JSON
@@ -441,13 +442,13 @@
 
 
 	/**
-	* Obtener datos usuario
+	* Añadir nuevo usuario
 	*/
 	$app->post('/api/usuarios/addusuario', function() use ($app)
 	{
 		//Obtenemos el JSON que se ha enviado
 		$data = $app->request->getJsonRawBody();
-/*
+
 		//Desmontamos el JSON
 		$dato = $data->dato;
 
@@ -457,47 +458,46 @@
 
 		//Obtenemos la Sesion y la informacion
 		$sesion = $datoenvio->getSesion();
-		$email = $datoenvio->getDato();
+		$user = $datoenvio->getDato();
 
 		//Tratamos la Sesion y la informacion
 		//Primero comprobamos la sesion
 		if($sesion->checkearEstado() == true)
 		{
+
 			//Si es correcta tratamos la informacion
 			//Comprobamos la informacion
 			$usuario = new Usuario();
-			if($usuario->existeEmail($email) == true)
+			$persona = new Persona();
+			if(($usuario->existeEmail($user['email']) != true) && true)//($persona->existeDNI(dni) == true))
 			{
-				//Si es correcta
-				//Obtenemos listado de usuarios
-				$usuario->putEmail($email);
-				$usuario->obtenerValores();
-				//$datoUsuario['usuario'] = $usuario;
-				$datoUsuario['email'] = $usuario->getEmail();
-				$datoUsuario['pass'] = $usuario->getPass();
-				$datoUsuario['rol'] = $usuario->getRol();
-				$datoUsuario['active'] = $usuario->getActive();
-				$datoUsuario['asignado'] = 'I';//xxxxx
+				$usuario->putUsuario($user['email'], $user['password'], $user['rol'], $user['active']);
 
+				$usuario->generarNuevo($user['email'], $user['password'], $user['rol'], $user['active']);
+
+				//asociamos la persona al usuario
+//return 'Samu -> ' . $usuario->existeEmail($user['email']);
 
 				//Guardamos en Log
 
 				//Devolvemos mesage correcto
 				$status = 'OK';
-				$message = 'Datos de usuario.';				
+				$message = 'Usuario creado y asociado.';				
 
 				//Montamos los datos de envio
-				$dato = $datoenvio->enviarDatos($sesion, $datoUsuario);
+				$dato = $datoenvio->enviarDatos($sesion, $usuario);
+
 			}
 			else
 			{
 				//Sino es correcta devolvemos mensage de usuario inexistente
 				$status = 'ERROR-3';
-				$message = 'Email inexistente.';
+				$message = 'Usuario ya existe.';
 
 				//Montamos los datos de envio
-				$dato = $datoenvio->enviarDatos($sesion, $email);
+				$dato = $datoenvio->enviarDatos($sesion, $user);
 			}
+
 		}
 		else
 		{
@@ -520,7 +520,7 @@
 
 		//Codificamos el JSON
 		$json = json_encode($data);
-*/
+
 		//Enviamos el JSON
 		return $json;
 
@@ -529,13 +529,13 @@
 
 
 	/**
-	* Obtener datos usuario
+	* Actualizar usuario
 	*/
 	$app->post('/api/usuarios/updusuario', function() use ($app)
 	{
 		//Obtenemos el JSON que se ha enviado
 		$data = $app->request->getJsonRawBody();
-/*
+
 		//Desmontamos el JSON
 		$dato = $data->dato;
 
@@ -545,47 +545,48 @@
 
 		//Obtenemos la Sesion y la informacion
 		$sesion = $datoenvio->getSesion();
-		$email = $datoenvio->getDato();
+		$user = $datoenvio->getDato();
 
 		//Tratamos la Sesion y la informacion
 		//Primero comprobamos la sesion
 		if($sesion->checkearEstado() == true)
 		{
+
 			//Si es correcta tratamos la informacion
 			//Comprobamos la informacion
 			$usuario = new Usuario();
-			if($usuario->existeEmail($email) == true)
+			$persona = new Persona();
+			if(($usuario->existeEmail($user['email']) == true) && true)//($persona->existeDNI(dni) == true))
 			{
-				//Si es correcta
-				//Obtenemos listado de usuarios
-				$usuario->putEmail($email);
-				$usuario->obtenerValores();
-				//$datoUsuario['usuario'] = $usuario;
-				$datoUsuario['email'] = $usuario->getEmail();
-				$datoUsuario['pass'] = $usuario->getPass();
-				$datoUsuario['rol'] = $usuario->getRol();
-				$datoUsuario['active'] = $usuario->getActive();
-				$datoUsuario['asignado'] = 'I';//xxxxx
+//return 'Samu UPDATE ' . $user['rol'];
 
+				$usuario->putUsuario($user['email'], $user['password'], $user['rol'], $user['active']);
+
+				$usuario->actualizarUsuario($user['email'], $user['password'], $user['rol'], $user['active']);
+
+				//asociamos la persona al usuario
+//return 'Samu -> ' . $usuario->existeEmail($user['email']);
 
 				//Guardamos en Log
 
 				//Devolvemos mesage correcto
 				$status = 'OK';
-				$message = 'Datos de usuario.';				
+				$message = 'Usuario actualizado.';				
 
 				//Montamos los datos de envio
-				$dato = $datoenvio->enviarDatos($sesion, $datoUsuario);
+				$dato = $datoenvio->enviarDatos($sesion, $usuario);
+
 			}
 			else
 			{
 				//Sino es correcta devolvemos mensage de usuario inexistente
 				$status = 'ERROR-3';
-				$message = 'Email inexistente.';
+				$message = 'Usuario no existe.';
 
 				//Montamos los datos de envio
 				$dato = $datoenvio->enviarDatos($sesion, $email);
 			}
+
 		}
 		else
 		{
@@ -608,7 +609,7 @@
 
 		//Codificamos el JSON
 		$json = json_encode($data);
-*/
+
 		//Enviamos el JSON
 		return $json;
 
@@ -617,13 +618,13 @@
 
 
 	/**
-	* Obtener datos usuario
+	* Actualizar usuario
 	*/
 	$app->post('/api/usuarios/delusuario', function() use ($app)
 	{
 		//Obtenemos el JSON que se ha enviado
 		$data = $app->request->getJsonRawBody();
-/*
+
 		//Desmontamos el JSON
 		$dato = $data->dato;
 
@@ -633,47 +634,48 @@
 
 		//Obtenemos la Sesion y la informacion
 		$sesion = $datoenvio->getSesion();
-		$email = $datoenvio->getDato();
+		$user = $datoenvio->getDato();
 
 		//Tratamos la Sesion y la informacion
 		//Primero comprobamos la sesion
 		if($sesion->checkearEstado() == true)
 		{
+
 			//Si es correcta tratamos la informacion
 			//Comprobamos la informacion
 			$usuario = new Usuario();
-			if($usuario->existeEmail($email) == true)
+			$persona = new Persona();
+			if(($usuario->existeEmail($user['email']) == true) && true)//($persona->existeDNI(dni) == true))
 			{
-				//Si es correcta
-				//Obtenemos listado de usuarios
-				$usuario->putEmail($email);
-				$usuario->obtenerValores();
-				//$datoUsuario['usuario'] = $usuario;
-				$datoUsuario['email'] = $usuario->getEmail();
-				$datoUsuario['pass'] = $usuario->getPass();
-				$datoUsuario['rol'] = $usuario->getRol();
-				$datoUsuario['active'] = $usuario->getActive();
-				$datoUsuario['asignado'] = 'I';//xxxxx
+//return 'Samu DELETE -> ' . $usuario->borrarUsuario($user['email']);
 
+				$usuario->putUsuario($user['email'], $user['password'], $user['rol'], $user['active']);
+
+				$usuario->borrarUsuario($user['email']);
+
+				//asociamos la persona al usuario
+//return 'Samu -> ' . $usuario->existeEmail($user['email']);
 
 				//Guardamos en Log
 
 				//Devolvemos mesage correcto
 				$status = 'OK';
-				$message = 'Datos de usuario.';				
+				$message = 'Usuario borrado.';				
 
 				//Montamos los datos de envio
-				$dato = $datoenvio->enviarDatos($sesion, $datoUsuario);
+				$dato = $datoenvio->enviarDatos($sesion, $usuario);
+
 			}
 			else
 			{
 				//Sino es correcta devolvemos mensage de usuario inexistente
 				$status = 'ERROR-3';
-				$message = 'Email inexistente.';
+				$message = 'Usuario no existe.';
 
 				//Montamos los datos de envio
 				$dato = $datoenvio->enviarDatos($sesion, $email);
 			}
+
 		}
 		else
 		{
@@ -696,7 +698,7 @@
 
 		//Codificamos el JSON
 		$json = json_encode($data);
-*/
+
 		//Enviamos el JSON
 		return $json;
 

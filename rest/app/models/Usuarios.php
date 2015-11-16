@@ -28,6 +28,12 @@ class Usuarios extends \Phalcon\Mvc\Model
     public $active;
 
     /**
+     *
+     * @var integer
+     */
+    public $idrol;
+
+    /**
      * Independent Column Mapping.
      */
     public function columnMap()
@@ -36,7 +42,8 @@ class Usuarios extends \Phalcon\Mvc\Model
             'id' => 'id', 
             'email' => 'email', 
             'pass' => 'pass', 
-            'active' => 'active'
+            'active' => 'active', 
+            'idrol' => 'idrol'
         );
     }
 

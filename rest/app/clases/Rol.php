@@ -78,4 +78,81 @@ class Rol extends ClaseAbstracta
         return $resultado;
     }
 
+    
+    /**
+    * Indica si existe el rol con el id
+    */
+    public function existeId($id)
+    {
+        $resultado = false;
+        $rol = Roles::findFirst( array('id = :id:',
+                                        'bind' => array ( 'id' => $id
+                                                        ) 
+                                    )
+                                );
+        
+        if($rol != false)
+        {
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
+    
+    /**
+    * Indica si existe el rol con el nombre
+    */
+    public function existenombre($nombre)
+    {
+        $resultado = false;
+        $rol = Roles::findFirst( array('nombre = :nombre:',
+                                        'bind' => array ( 'nombre' => $nombre
+                                                        ) 
+                                    )
+                                );
+        
+        if($rol != false)
+        {
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
+
+    /**
+    * Obtenemos datos del rol segun el id
+    */
+    public function obtenerValores()
+    {
+        $id = $this->getId();
+
+        $rol = ROLES::findFirst( array('id = :id:',
+                                        'bind' => array ( 'id' => $id
+                                                        ) 
+                                    )
+                                );
+
+        if($rol != false)
+        {
+            $this->putRol($rol->id, $rol->nombre);
+        }
+    }
+
+    /**
+    * Generar un nuevo rol
+    */
+    public function generarNuevo($nombre)
+    {
+        $rol = new Roles();
+
+        $rol->nombre = $nombre;
+
+        $success = $rol->save();
+
+        if($success)
+        {
+            $this->putRol($rol->id, $rol->nombre);
+        }
+    }
+
 }

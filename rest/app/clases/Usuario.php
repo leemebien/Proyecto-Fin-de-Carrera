@@ -176,7 +176,7 @@ class Usuario extends ClaseAbstracta
 
     	if($usuario != false)
     	{
-    		$rol = Rolesusuarios::findFirst( array('idusuario = :idusuario:',
+/*    		$rol = Rolesusuarios::findFirst( array('idusuario = :idusuario:',
     												'bind' => array ( 'idusuario' => $usuario->id
     																) 
     											)
@@ -185,7 +185,8 @@ class Usuario extends ClaseAbstracta
     		if($rol != false)
     		{
     			$this->putUsuario($usuario->email, $usuario->pass, $rol->idrol, $usuario->active);
-    		}
+*/                $this->putUsuario($usuario->email, $usuario->pass, $usuario->idrol, $usuario->active);
+//    		}
     	}
     }
 
@@ -200,12 +201,13 @@ class Usuario extends ClaseAbstracta
         $usuario->email = $email;
         $usuario->pass = $pass;
         $usuario->active = $active;
+        $usuario->idrol = $rol;
 
         $success = $usuario->save();
 
         if($success)
         {
-            $rolusuario = new Rolesusuarios();
+/*            $rolusuario = new Rolesusuarios();
 
             $rolusuario->idusuario = $usuario->id;
             $rolusuario->idrol = $rol;
@@ -215,7 +217,104 @@ class Usuario extends ClaseAbstracta
             if($success)
             {
                 $this->putUsuario($usuario->email, $usuario->pass, $rolusuario->idrol, $usuario->active);
+*/                $this->putUsuario($usuario->email, $usuario->pass, $usuario->idrol, $usuario->active);
+//            }
+        }
+    }
+
+
+    /**
+    * Actualizamos usuario
+    */
+    public function actualizarUsuario($email, $pass, $rol, $active)
+    {    
+        $usuario = Usuarios::findFirst( array('email = :email:',
+                                                'bind' => array ( 'email' => $email
+                                                                ) 
+                                            )
+                                    );
+
+        if ((!password_verify('', $pass)) || ($usuario->pass != $pass))
+        {
+            $usuario->pass = $pass;
+        }
+
+        $usuario->active = $active;
+        $usuario->idrol = $rol;
+
+        $success = $usuario->update();
+
+        if($success)
+        {
+/*            $rolusuario = Rolesusuarios::findFirst( array('idusuario = :idusuario:',
+                                                        'bind' => array ( 'idusuario' => $usuario->id
+                                                                        )
+                                                    )
+                                                );
+            if($rolusuario->idrol != $rol)
+            {
+                $rolusuario->idrol = $rol;
+                $success = $rolusuario->update();
             }
+
+            if($success)
+            {
+                $this->putUsuario($usuario->email, $usuario->pass, $rolusuario->idrol, $usuario->active);
+*/                $this->putUsuario($usuario->email, $usuario->pass, $usuario->idrol, $usuario->active);
+//            }
+
+        }
+    }
+
+
+    /**
+    * Actualizamos password usuario
+    */
+    public function actualizarPassUsuario($email, $pass)
+    {    
+        $usuario = Usuarios::findFirst( array('email = :email:',
+                                                'bind' => array ( 'email' => $email
+                                                                ) 
+                                            )
+                                    );
+
+        $usuario->pass = $pass;
+
+        $success = $usuario->update();
+
+        if($success)
+        {
+            $this->putUsuario($usuario->email, $usuario->pass, $usuario->idrol, $usuario->active);
+        }
+    }
+
+
+    /**
+    * Borramos usuario
+    */
+    public function borrarUsuario($email)
+    {    
+        $usuario = Usuarios::findFirst( array('email = :email:',
+                                                'bind' => array ( 'email' => $email
+                                                                ) 
+                                            )
+                                    );
+
+        if($usuario != false)
+        {
+/*            $rolusuario = Rolesusuarios::find( array('idusuario = :idusuario:',
+                                                    'bind' => array ( 'idusuario' => $usuario->id
+                                                                    )
+                                                )
+                                            );
+            
+            $success = $rolusuario->delete();
+            
+            if($success)
+            {
+*/                $success = $usuario->delete();
+//            }
+
         }
     }
 
@@ -230,13 +329,14 @@ class Usuario extends ClaseAbstracta
 
         foreach ($arrayUsuarios as $usuarios) 
         {
-            $rol = Rolesusuarios::findFirst( array('idusuario = :idusuario:',
+/*            $rol = Rolesusuarios::findFirst( array('idusuario = :idusuario:',
                                                     'bind' => array ( 'idusuario' => $usuarios->id
                                                                     ) 
                                                 )
                                         );
-            $u = new Usuario();
-            $u->putUsuario($usuarios->email, $usuarios->pass, $rol->idrol, $usuarios->active);
+*/            $u = new Usuario();
+//            $u->putUsuario($usuarios->email, $usuarios->pass, $rol->idrol, $usuarios->active);
+            $u->putUsuario($usuarios->email, $usuarios->pass, $usuarios->idrol, $usuarios->active);
 
             //$arrayUsuario[$usuarios->id] = $this->putUsuario($usuarios->email, $usuarios->pass, $rol->idrol, $usuarios->active);
             $arrayUsuario[$i] = $u;

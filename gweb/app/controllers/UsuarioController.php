@@ -293,22 +293,21 @@ class UsuarioController extends ControllerBase
             $sesion = $auth['sesion'];
 
             $paso = false;
-$this->flash->error('->' . isset($_POST['usuario_M']) . '<-');  
-return $this->forward('trabajoadmin/index');
 
             if(isset($_POST['usuario_A']))
             {
+//die('boton a');
                 $email = $this->request->getPost('usuarioInputEmail');
                 $password = $this->security->hash($this->request->getPost('usuarioInputPass1'));
                 $active = $this->request->getPost('usuarioInputActive');
                 $rol = $this->request->getPost('usuarioInputRol');
                 $persona = $this->request->getPost('usuarioInputUsuario');
 
-                $valor['email'] = $email;
-                $valor['password'] = $password;
-                $valor['active'] = $active;
-                $valor['rol'] = $rol;
-                $valor['persona'] = $persona;
+                $valor = array('email' => $email
+                                ,'password' => $password
+                                ,'active' => $active
+                                ,'rol' => $rol
+                                ,'persona' => $persona);
 
                 //Obtenemos la url
                 $url = 'http://localhost/rest/api/usuarios/addusuario/';
@@ -324,11 +323,11 @@ return $this->forward('trabajoadmin/index');
                 $rol = $this->request->getPost('usuarioInputRol');
                 $persona = $this->request->getPost('usuarioInputUsuario');
 
-                $valor['email'] = $email;
-                $valor['password'] = $password;
-                $valor['active'] = $active;
-                $valor['rol'] = $rol;
-                $valor['persona'] = $persona;
+                $valor = array('email' => $email
+                                ,'password' => $password
+                                ,'active' => $active
+                                ,'rol' => $rol
+                                ,'persona' => $persona);
 
                 //Obtenemos la url
                 $url = 'http://localhost/rest/api/usuarios/updusuario/';
@@ -337,19 +336,28 @@ return $this->forward('trabajoadmin/index');
             }
 
             if(isset($_POST['usuario_E']))
-            {
+            {   
                 $email = $this->request->getPost('usuarioInputEmail');
+                $password = $this->security->hash($this->request->getPost('usuarioInputPass1'));
+                $active = $this->request->getPost('usuarioInputActive');
+                $rol = $this->request->getPost('usuarioInputRol');
+                $persona = $this->request->getPost('usuarioInputUsuario');
 
-                $valor = $email;
+                $valor = array('email' => $email
+                                ,'password' => $password
+                                ,'active' => $active
+                                ,'rol' => $rol
+                                ,'persona' => $persona);
 
                 //Obtenemos la url
                 $url = 'http://localhost/rest/api/usuarios/delusuario/';
 
                 $paso = true;
             }
-/*
+
             if($paso)
             {
+//die('paso ' . $password);
 
 
                 $datoenvio = new Datoenvio();
@@ -363,7 +371,7 @@ return $this->forward('trabajoadmin/index');
 /*
                 //Obtenemos la url
                 $url = 'http://localhost/rest/api/sesiones/actualizarSesion/';
-*//*
+*/
                 //Creamos el flujo
                 $opciones = array('http' => array('method' => "POST",
                                                     'header' => 'Content-type: application/json',
@@ -375,9 +383,8 @@ return $this->forward('trabajoadmin/index');
 
                 //Realizamos la llamada al API REST y Obtenemos la respuesta
                 $json = file_get_contents($url, false, $contexto);
-//$this->flash->error($url);  
-//return $this->forward('trabajoadmin/index');
-//}
+//$this->flash->error('JSON -> ' .$json);  
+//return $this->forward('trabajoSU/index');
     
                 //Decodificamos el JSON
                 $data = json_decode($json);
@@ -394,22 +401,22 @@ return $this->forward('trabajoadmin/index');
 
                 if($data->status != 'OK')
                 {
-                    $this->session->remove('auth');
-                    $this->flash->error('Error en nombre/password');  
-                    return $this->forward('index/index');
+                    //$this->session->remove('auth');
+                    $this->flash->error($data->message);  
+                    return $this->forward('trabajoSU/index');
                 } 
             }
             else
             {
                 $this->flash->error('No se ha realizado ningun cambio.');  
-                return $this->forward('trabajoadmin/index');
+                return $this->forward('trabajoSU/index');
             }
 
-            $this->flash->success('Cambios realizados.');  
-            return $this->forward('trabajoadmin/index');
-    */
-$this->flash->error($url);  
-return $this->forward('trabajoadmin/index');
+            $this->flash->success('Operación realizada.');  
+            return $this->forward('trabajoSU/index');
+    
+//$this->flash->error($url);  
+//return $this->forward('trabajoadmin/index');
         }
     }
 
