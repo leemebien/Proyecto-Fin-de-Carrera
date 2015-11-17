@@ -91,7 +91,7 @@ class RolController extends ControllerBase
                 
             if(isset($_POST['rol_M']))
             {
-die('boton m');
+//die('boton m');
                 $id = $this->request->getPost('rolInputId');
                 $nombre = $this->request->getPost('rolInputNombre');
 
@@ -106,7 +106,7 @@ die('boton m');
 
             if(isset($_POST['rol_E']))
             { 
-die('boton e');  
+//die('boton e');  
                 $id = $this->request->getPost('rolInputId');
                 $nombre = $this->request->getPost('rolInputNombre');
 
@@ -121,9 +121,9 @@ die('boton e');
 
             if($paso)
             {
-die('paso ' . $id);
-die('paso ' . $nombre);
-die('paso ' . $url);
+//die('paso ' . $id);
+//die('paso ' . $nombre);
+//die('paso ' . $url);
 
 
                 $datoenvio = new Datoenvio();

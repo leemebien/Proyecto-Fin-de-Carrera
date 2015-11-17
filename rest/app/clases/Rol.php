@@ -102,7 +102,7 @@ class Rol extends ClaseAbstracta
     /**
     * Indica si existe el rol con el nombre
     */
-    public function existenombre($nombre)
+    public function existeNombre($nombre)
     {
         $resultado = false;
         $rol = Roles::findFirst( array('nombre = :nombre:',
@@ -152,6 +152,43 @@ class Rol extends ClaseAbstracta
         if($success)
         {
             $this->putRol($rol->id, $rol->nombre);
+        }
+    }
+    
+    /**
+    * Actualizamos rol
+    */
+    public function actualizarRol($id, $nombre)
+    {    
+        $rol = Roles::findFirst( array('id = :id:',
+                                                'bind' => array ( 'id' => $id
+                                                                ) 
+                                            )
+                                    );
+
+        $rol->nombre = $nombre;
+
+        $success = $rol->update();
+
+        if($success)
+        {
+            $this->putRol($rol->id, $rol->nombre);
+        }
+    }
+    
+    /**
+    * Borramos rol
+    */
+    public function borrarRol($id, $nombre)
+    {    
+        $rol = Roles::findFirst( array('id = :id:',
+                                                'bind' => array ( 'id' => $id
+                                                                ) 
+                                            )
+                                    );
+        if($rol != false)
+        {
+            $success = $rol->delete();
         }
     }
 

@@ -217,62 +217,69 @@ class UsuarioController extends ControllerBase
     {
 
         $auth = $this->session->get('auth');
-        $usuario = $auth['user'];
-        $sesion = $auth['sesion'];
 
-        $sesion->putFechaActual(date('Y/m/d_H:i:s'));
-        $sesion->putFechaCaducidad(date('Y/m/d_H:i:s'));
-
-        $datoenvio = new Datoenvio();
-        $dato = $datoenvio->enviarDatos($sesion, $usuario);
-
-        $data = array('dato' => $dato
-                        ,'status' => 'TO_EXIT'
-                        ,'message' => 'Realizar logout.');
-
-        $json = json_encode($data);
-
-        //Obtenemos la url
-        $url = 'http://localhost/rest/api/usuarios/logout/';
-
-        //Creamos el flujo
-        $opciones = array('http' => array('method' => "POST",
-                                            'header' => 'Content-type: application/json',
-                                            'content' => $json,
-                                            'timeout' => 60)
-                        );
-
-        $contexto = stream_context_create($opciones);
-
-        //Realizamos la llamada al API REST y Obtenemos la respuesta
-        $json = file_get_contents($url, false, $contexto);
-
-        //Decodificamos el JSON
-        $data = json_decode($json);
-
-        //Desmontamos el JSON
-        $dato = $data->dato;
-
-        //Desmontamos los datos de envio
-        $datoenvio->obtenerDatos($dato);
-
-        //Obtenemos la Sesion y la informacion
-        $sesion = $datoenvio->getSesion();
-        $usuario = $datoenvio->getDato();
-
-        //$this->flash->error($data->dato);
-        //return $this->forward('index/index');
-
-        $this->session->remove('auth');
-
-        if($data->status == 'OK')
+        if ($auth != false) 
         {
-            //$this->session->remove('auth');
-            $this->flash->success('Goodbye!');
+            $usuario = $auth['user'];
+            $sesion = $auth['sesion'];
+
+            $sesion->putFechaActual(date('Y/m/d_H:i:s'));
+            $sesion->putFechaCaducidad(date('Y/m/d_H:i:s'));
+
+            $datoenvio = new Datoenvio();
+            $dato = $datoenvio->enviarDatos($sesion, $usuario);
+
+            $data = array('dato' => $dato
+                            ,'status' => 'TO_EXIT'
+                            ,'message' => 'Realizar logout.');
+
+            $json = json_encode($data);
+
+            //Obtenemos la url
+            $url = 'http://localhost/rest/api/usuarios/logout/';
+
+            //Creamos el flujo
+            $opciones = array('http' => array('method' => "POST",
+                                                'header' => 'Content-type: application/json',
+                                                'content' => $json,
+                                                'timeout' => 60)
+                            );
+
+            $contexto = stream_context_create($opciones);
+
+            //Realizamos la llamada al API REST y Obtenemos la respuesta
+            $json = file_get_contents($url, false, $contexto);
+
+            //Decodificamos el JSON
+            $data = json_decode($json);
+
+            //Desmontamos el JSON
+            $dato = $data->dato;
+
+            //Desmontamos los datos de envio
+            $datoenvio->obtenerDatos($dato);
+
+            //Obtenemos la Sesion y la informacion
+            $sesion = $datoenvio->getSesion();
+            $usuario = $datoenvio->getDato();
+
+            //$this->flash->error($data->dato);
+            //return $this->forward('index/index');
+
+            $this->session->remove('auth');
+
+            if($data->status == 'OK')
+            {
+                //$this->session->remove('auth');
+                $this->flash->success('Goodbye!');
+                return $this->forward('index/index');
+            }
+
+            $this->flash->error('Error en nombre/password');  
             return $this->forward('index/index');
         }
 
-        $this->flash->error('Error en nombre/password');  
+        $this->flash->error('Error en sesion');  
         return $this->forward('index/index');
     }
 
