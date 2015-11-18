@@ -1,6 +1,6 @@
 <?php
 
-class RolController extends ControllerBase
+class TipoController extends ControllerBase
 {
     public function indexAction()
     {
@@ -74,47 +74,47 @@ class RolController extends ControllerBase
 
             $paso = false;
 
-            if(isset($_POST['rol_A']))
+            if(isset($_POST['tipo_A']))
             {
 //die('boton a');
-                $id = $this->request->getPost('rolInputId');
-                $nombre = $this->request->getPost('rolInputNombre');
+                $id = $this->request->getPost('tipoInputId');
+                $nombre = $this->request->getPost('tipoInputNombre');
 
                 $valor = array('id' => $id
                                 ,'nombre' => $nombre);
 
                 //Obtenemos la url
-                $url = 'http://localhost/rest/api/roles/addrol/';
+                $url = 'http://localhost/rest/api/tipos/addtipo/';
 
                 $paso = true;
             }
                 
-            if(isset($_POST['rol_M']))
+            if(isset($_POST['tipo_M']))
             {
 //die('boton m');
-                $id = $this->request->getPost('rolInputId');
-                $nombre = $this->request->getPost('rolInputNombre');
+                $id = $this->request->getPost('tipoInputId');
+                $nombre = $this->request->getPost('tipoInputNombre');
 
                 $valor = array('id' => $id
                                 ,'nombre' => $nombre);
 
                 //Obtenemos la url
-                $url = 'http://localhost/rest/api/roles/updrol/';
+                $url = 'http://localhost/rest/api/tipos/updtipo/';
 
                 $paso = true;
             }
 
-            if(isset($_POST['rol_E']))
+            if(isset($_POST['tipo_E']))
             { 
 //die('boton e');  
-                $id = $this->request->getPost('rolInputId');
-                $nombre = $this->request->getPost('rolInputNombre');
+                $id = $this->request->getPost('tipoInputId');
+                $nombre = $this->request->getPost('tipoInputNombre');
 
                 $valor = array('id' => $id
                                 ,'nombre' => $nombre);
 
                 //Obtenemos la url
-                $url = 'http://localhost/rest/api/roles/delrol/';
+                $url = 'http://localhost/rest/api/tipos/deltipo/';
 
                 $paso = true;
             }
@@ -130,8 +130,8 @@ class RolController extends ControllerBase
                 $dato = $datoenvio->enviarDatos($sesion, $valor);
 
                 $data = array('dato' => $dato
-                                ,'status' => 'TO_ACTIONUSER'
-                                ,'message' => 'Accciones con rol.');
+                                ,'status' => 'TO_ACTIONTYPE'
+                                ,'message' => 'Accciones con tipo.');
 
                 $json = json_encode($data);
 /*

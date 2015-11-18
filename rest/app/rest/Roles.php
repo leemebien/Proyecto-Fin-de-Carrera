@@ -30,7 +30,7 @@
 
 
 	/**
-	* Obtener listado de usuarios
+	* Obtener listado de roles
 	*/
 	$app->post('/api/roles/getlist', function() use ($app)
 	{
@@ -61,7 +61,7 @@
 
 			//Devolvemos mesage correcto
 			$status = 'OK';
-			$message = 'Listado de usuario.';				
+			$message = 'Listado de rol.';				
 
 			//Montamos los datos de envio
 			$dato = $datoenvio->enviarDatos($sesion, $arrayRoles);
@@ -155,7 +155,7 @@
 				$message = 'Rol inexistente.';
 
 				//Montamos los datos de envio
-				$dato = $datoenvio->enviarDatos($sesion, $email);
+				$dato = $datoenvio->enviarDatos($sesion, $rol);
 			}
 		}
 		else
@@ -188,7 +188,7 @@
 
 
 	/**
-	* Añadir nuevo usuario
+	* Añadir nuevo rol
 	*/
 	$app->post('/api/roles/addrol', function() use ($app)
 	{
@@ -267,7 +267,7 @@
 
 
 	/**
-	* Añadir nuevo usuario
+	* Actualizar rol
 	*/
 	$app->post('/api/roles/updrol', function() use ($app)
 	{
@@ -348,7 +348,7 @@
 
 
 	/**
-	* Añadir nuevo usuario
+	* Borrar rol
 	*/
 	$app->post('/api/roles/delrol', function() use ($app)
 	{

@@ -18,7 +18,7 @@ class Tipo extends ClaseAbstracta
     /**
     * Guardar valores
     */
-    public function putFoto($id, $nombre)
+    public function putTipo($id, $nombre)
     {
         $this->id = $id;
         $this->nombre = $nombre;
@@ -61,21 +61,135 @@ class Tipo extends ClaseAbstracta
     * Obtenemos listado
     */
     public function getListado()
-    {/*
-        $arrayRoles = Roles::find();
+    {
+        $arrayTipos = Tipos::find();
 //return $arrayRoles[2]->nombre;
         $i = 0;
 
-        foreach ($arrayRoles as $rol) 
+        foreach ($arrayTipos as $tipo) 
         {
-        	$r = new Rol();
-        	$r->putRol($rol->id, $rol->nombre);
-            $resultado[$i] = $r;
+            $t = new Tipo();
+            $t->putTipo($tipo->id, $tipo->nombre);
+            $resultado[$i] = $t;
             $i++;
         }
 
         //return $arrayRoles;
         return $resultado;
-    */}
+    }
+
+    
+    /**
+    * Indica si existe el tipo con el id
+    */
+    public function existeId($id)
+    {
+        $resultado = false;
+        $tipo = Tipos::findFirst( array('id = :id:',
+                                        'bind' => array ( 'id' => $id
+                                                        ) 
+                                    )
+                                );
+        
+        if($tipo != false)
+        {
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
+    
+    /**
+    * Indica si existe el tipo con el nombre
+    */
+    public function existeNombre($nombre)
+    {
+        $resultado = false;
+        $tipo = Tipos::findFirst( array('nombre = :nombre:',
+                                        'bind' => array ( 'nombre' => $nombre
+                                                        ) 
+                                    )
+                                );
+        
+        if($tipo != false)
+        {
+            $resultado = true;
+        }
+        return $resultado;
+    }
+
+
+    /**
+    * Obtenemos datos del tipo segun el id
+    */
+    public function obtenerValores()
+    {
+        $id = $this->getId();
+
+        $tipo = Tipos::findFirst( array('id = :id:',
+                                        'bind' => array ( 'id' => $id
+                                                        ) 
+                                    )
+                                );
+
+        if($tipo != false)
+        {
+            $this->putTipo($tipo->id, $tipo->nombre);
+        }
+    }
+
+    /**
+    * Generar un nuevo tipo
+    */
+    public function generarNuevo($nombre)
+    {
+        $tipo = new Tipos();
+
+        $tipo->nombre = $nombre;
+
+        $success = $tipo->save();
+
+        if($success)
+        {
+            $this->putTipo($tipo->id, $tipo->nombre);
+        }
+    }
+    
+    /**
+    * Actualizamos tipo
+    */
+    public function actualizarTipo($id, $nombre)
+    {    
+        $tipo = Tipos::findFirst( array('id = :id:',
+                                        'bind' => array ( 'id' => $id
+                                                        ) 
+                                        )
+                                );
+
+        $tipo->nombre = $nombre;
+
+        $success = $tipo->update();
+
+        if($success)
+        {
+            $this->putTipo($tipo->id, $tipo->nombre);
+        }
+    }
+    
+    /**
+    * Borramos tipo
+    */
+    public function borrarTipo($id, $nombre)
+    {    
+        $tipo = Tipos::findFirst( array('id = :id:',
+                                        'bind' => array ( 'id' => $id
+                                                        ) 
+                                        )
+                                );
+        if($tipo != false)
+        {
+            $success = $tipo->delete();
+        }
+    }
 
 }

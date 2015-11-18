@@ -37,13 +37,14 @@ class SecurityPlugin extends Plugin
 			}
 
 			//Indicamos las areas privadas
-			$privateResources = array('trabajo' => array('index', 'ajaxUsuario', 'ajaxRol'),
+			$privateResources = array('trabajo' => array('index', 'ajaxUsuario', 'ajaxRol', 'ajaxTipo'),
 										'trabajopadre' => array('index'),
 										'trabajoprofe' => array('index'),
 										'trabajoadmin' => array('index'),//, 'ajaxUsuario'),
 										'trabajoSU' => array('index'),
 										'usuario' => array('mantenimiento'),
 										'rol' => array('mantenimiento'),
+										'tipo' => array('mantenimiento'),
 										'entidad' => array('index', 'operacionalumno'));
 
 			//Añadimos las alreas
