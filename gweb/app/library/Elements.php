@@ -895,6 +895,141 @@ class Elements extends ComponentBase
                 echo $this->tag->endForm();
 
                 break;
+
+            case 'foto':
+
+
+//                echo 'Formulario foto';
+
+                echo $this->tag->form(array("foto/mantenimiento", 
+                                                "method" => "POST",
+                                                "class" => "table-responsive",
+                                                "style" => "height: 200px"));
+
+                echo "<div class='form-group' style='width: 50%; float: left; text-align: left; height: 50px;'>
+                    <label for='fotoInputId'>Id</label>";
+
+                echo $this->tag->textField(array("fotoInputId",
+                                                    "id" => "fotoInputId",
+                                                    "class" => "form-control",
+                                                    "placeholder" => "Id"));
+
+                echo "</div>";
+
+                echo "<div class='form-group' style='width: 50%; float: left; text-align: left; height: 50px;'>
+                    <label for='fotoInputNombre'>Nombre</label>";
+
+                echo $this->tag->textField (array("fotoInputNombre",
+                                                    "id" => "fotoInputNombre",
+                                                    "class" => "form-control",
+                                                    "placeholder" => "Nombre",
+                                                    "maxlength" => "20"));
+
+                echo "</div>";
+
+                echo "<div class='form-group' style='width: 50%; float: left; text-align: left; height: 50px;'>
+                    <label for='fotoInputFotobinaria'>Archivo</label>";
+
+                echo $this->tag->fileField (array("fotoInputFotobinaria",
+                                                    "id" => "fotoInputFotobinaria",
+                                                    "class" => "form-control",
+                                                    "placeholder" => "Fichero",
+                                                    "maxlength" => "20",
+                                                    "accept" => "image/*"));
+
+                echo "</div>";
+
+                echo "<div class='form-group' style='width: 50%; float: left; text-align: left; height: 50px;'>
+                    <label for='fotoInputTipo'>Tipo</label>";
+
+                echo $this->tag->textField (array("fotoInputTipo",
+                                                    "id" => "fotoInputTipo",
+                                                    "class" => "form-control",
+                                                    "placeholder" => "Tipo",
+                                                    "maxlength" => "20"));
+
+                echo "</div>";
+
+                echo "<div class='form-group' style='float: center; text-align: center; height: 50px;'>
+                    <br />";
+/*
+                echo $this->tag->submitbutton(array("Añadir",
+                                                "id" => "usuario_A",
+                                                "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+
+                echo "<a href='#' class='btn btn-success add pull-right' onclick='crudPhalcon.add()'>Añadir post</a>";
+
+                echo "<a href='#' class='btn btn-success add' id='usuario_A' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Añadir</a>";
+*/
+                echo $this->tag->submitbutton(array("Añadir",
+                                                    "name" => "foto_A",
+                                                    "class" => "btn btn-success add",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+/*
+                echo $this->tag->submitbutton(array("Modificar",
+                                                "id" => "usuario_M",
+                                                "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+
+                echo " <a href='#'' class='btn btn-info editar' 
+                        onclick='crudPhalcon.edit(" + echo htmlentities(json_encode($post))  + ")'>
+                            Editar
+                        </a>";
+                        
+                echo "<a href='#' class='btn btn-info editar' id='usuario_M' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Editar</a>";
+*/
+                echo $this->tag->submitbutton(array("Editar",
+                                                    "name" => "foto_M",
+                                                    "class" => "btn btn-info editar",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+/*
+                echo $this->tag->submitbutton(array("Eliminar",
+                                                "id" => "usuario_E",
+                                                "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+
+                echo "<a href='#' class='btn btn-danger eliminar' 
+                        onclick='crudPhalcon.delete(" + echo htmlentities(json_encode($post))  + ")'> 
+                            Eliminar
+                        </a>";
+
+                echo "<a href='#' class='btn btn-danger eliminar' id='usuario_E' style = 'margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;'>Eliminar</a>";
+*/
+                echo $this->tag->submitbutton(array("Eliminar",
+                                                    "name" => "foto_E",
+                                                    "class" => "btn btn-danger eliminar",
+                                                    "style" => "margin-top: 8px;
+                                                            margin-bottom: 8px;
+                                                            margin-right: 8px;
+                                                            margin-left: 8px;"));
+
+                echo "</div>";
+
+                echo $this->tag->endForm();
+
+                break;
             
             default:
                 echo "resto";
@@ -1369,6 +1504,147 @@ echo "',
 
             $('#tipoInputId').val(resultado.id);
             $('#tipoInputNombre').val(resultado.nombre);
+        })
+        .fail( function(resultado) {
+            console.log('error');
+        })
+        .always( function() {
+            console.log('complete');
+        });
+
+    });
+
+});
+</script>
+";}
+                else
+                {
+                    $this->flash->error('Error en listado');  
+                    return $this->forward('index/index');
+                }
+                break;
+
+            case 'foto':
+
+                $auth = $this->session->get('auth');
+                $usuario = $auth['user'];
+                $sesion = $auth['sesion'];
+
+                $datoenvio = new Datoenvio();
+                $dato = $datoenvio->enviarDatos($sesion, $usuario);
+
+                $data = array('dato' => $dato
+                                ,'status' => 'TO_GETLIST'
+                                ,'message' => 'Obtener listado fotos.');
+
+                $json = json_encode($data);
+
+                //Obtenemos la url
+                $url = 'http://localhost/rest/api/fotos/getlist/';
+
+                //Creamos el flujo
+                $opciones = array('http' => array('method' => "POST",
+                                                    'header' => 'Content-type: application/json',
+                                                    'content' => $json,
+                                                    'timeout' => 60)
+                                );
+
+                $contexto = stream_context_create($opciones);
+/*$this->flash->error($contexto);  
+return $this->forward('index/index');
+*/
+                //Realizamos la llamada al API REST y Obtenemos la respuesta
+                $json = file_get_contents($url, false, $contexto);
+/*$this->flash->error($json);  
+return $this->forward('index/index');
+*/
+                //Decodificamos el JSON
+                $data = json_decode($json);
+
+                //Desmontamos el JSON
+                $dato = $data->dato;
+
+                //Desmontamos los datos de envio
+                $datoenvio->obtenerDatos($dato);
+
+                //Obtenemos la Sesion y la informacion
+                $sesion = $datoenvio->getSesion();
+                $arrayFotos = $datoenvio->getDato();
+
+                if($data->status == 'OK')
+                {
+//                    echo "Listado rol";
+
+                    echo "<table border=0 style='width: 616px;' class='table table-hover table-responsive'>
+                        <thead style='display: table-header-group; vertical-align: middle; border-color: inherit;'>
+                        <tr style='display: block; position: relative;'>
+                            <th style='width: 300px;'>Foto</th>
+                            <th style='width: 200px;'>Nombre</th>
+                            <th style='width: 116px;'>Tipo</th>
+                        </tr>
+                        </thead>
+                        <tbody id='listaFotos' style='display: block; height: 200px; overflow: auto; width: 100%;'>";
+
+                    $i=0;
+
+                    for ($i=0;$i<count($arrayFotos);$i++) 
+                    {
+                        $f = $arrayFotos[$i];                        
+                        //echo "<tr style='display: table-row; vertical-align: inherit;' data-href='index/index'>
+                        //        <td style='width: 300px;'>";
+                        echo "<tr style='display: table-row; vertical-align: inherit;' data-id=" . $f->getId() . ">
+                                <td style='width: 300px;'>";
+                        echo "foto";
+                        echo "</td><td style='width: 200px;'>";
+                        echo $f->getNombre();
+                        echo "</td><td style='width: 100px;'>";
+                        echo $f->getTipo();
+                        echo "</td></tr>";
+                    }
+
+                    echo "</tbody></table>";
+/*
+echo "
+<script type='text/javascript'>
+$('tr[data-href]').on('click', function() {
+    document.location = $(this).data('href');
+});
+</script>
+";
+*/
+echo "
+<script type='text/javascript'>
+$(function(){
+
+    $('body').on('click', '#listaFotos tr', function(event) {
+
+        event.preventDefault();
+        
+        var busqueda = $(this).attr('data-id');
+
+        $.ajax({
+            url: '";
+//Script_a.php
+echo $this->url->get('trabajo/ajaxFoto');
+echo "',
+            type: 'POST',
+            dataType: 'json',
+            data: { action: 'getDataFoto', id: busqueda },
+            cache: false
+        })
+        .done( function( resultado ) {
+            console.log('success');
+            console.log(resultado);
+
+            console.log(resultado.id);
+            console.log(resultado.nombre);
+            console.log(resultado.fotobinaria);
+            console.log(resultado.tipo);
+
+            $('#fotoInputId').val(resultado.id);
+            $('#fotoInputNombre').val(resultado.nombre);
+            $('#fotoInputFotobinaria').val(resultado.fotobinaria);
+            $('#fotoInputTipo').val(resultado.tipo);
         })
         .fail( function(resultado) {
             console.log('error');
