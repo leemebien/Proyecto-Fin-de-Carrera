@@ -75,7 +75,7 @@ class Foto extends ClaseAbstracta
     */
     public function getFotobinaria()
     {
-        return $this->nombre;
+        return $this->fotobinaria;
     }
 
     /**
@@ -119,6 +119,7 @@ class Foto extends ClaseAbstracta
             $resultado[$i] = $f;
             $i++;
         }
+//return $resultado[2]->getFotobinaria();
 
         //return $arrayRoles;
         return $resultado;
@@ -229,7 +230,7 @@ class Foto extends ClaseAbstracta
     /**
     * Borramos foto
     */
-    public function borrarTipo($id, $nombre, $fotobinaria, $tipo)
+    public function borrarFoto($id, $nombre, $fotobinaria, $tipo)
     {    
         $foto = Fotos::findFirst( array('id = :id:',
                                         'bind' => array ( 'id' => $id

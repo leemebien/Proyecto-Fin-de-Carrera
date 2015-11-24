@@ -82,9 +82,28 @@ class FotoController extends ControllerBase
                 $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
                 $tipo = $this->request->getPost('fotoInputTipo');
 
+//                $nombre = $this->request->getPost('fotoInputNombre');
+//                $nombre = $_FILES['fotoInputFotobinaria']['name'];
+//die($nombre);
+
+//                $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
+                $fotobinaria = $_FILES['fotoInputFotobinaria']['tmp_name'];
+//die($fotobinaria);
+$data = file_get_contents($fotobinaria);
+//die($data);
+////$fotobinaria = mysql_escape_string($data);
+//die(mysqli_real_escape_string($data));
+//$fotobinaria = mysqli_real_escape_string($data);
+//die($fotobinaria);
+
+//                $tipo = $this->request->getPost('fotoInputTipo');
+                $tipo = $_FILES['fotoInputFotobinaria']['type'];
+//die($tipo);
+
                 $valor = array('id' => $id
                                 ,'nombre' => $nombre
-                                ,'fotobinaria' => $fotobinaria
+                                //,'fotobinaria' => $fotobinaria
+,'fotobinaria' => $data
                                 ,'tipo' => $tipo);
 
                 //Obtenemos la url
@@ -101,9 +120,21 @@ class FotoController extends ControllerBase
                 $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
                 $tipo = $this->request->getPost('fotoInputTipo');
 
+//                $nombre = $this->request->getPost('fotoInputNombre');
+                $nombre = $_FILES['fotoInputFotobinaria']['name'];
+
+//                $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
+                $fotobinaria = $_FILES['fotoInputFotobinaria']['tmp_name'];
+$data = file_get_contents($imagen_temporal);
+//$fotobinaria = mysql_escape_string($data);
+
+//                $tipo = $this->request->getPost('fotoInputTipo');
+                $tipo = $_FILES['fotoInputFotobinaria']['type'];
+
                 $valor = array('id' => $id
                                 ,'nombre' => $nombre
-                                ,'fotobinaria' => $fotobinaria
+                                //,'fotobinaria' => $fotobinaria
+,'fotobinaria' => $data
                                 ,'tipo' => $tipo);
 
                 //Obtenemos la url
@@ -120,9 +151,21 @@ class FotoController extends ControllerBase
                 $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
                 $tipo = $this->request->getPost('fotoInputTipo');
 
+//                $nombre = $this->request->getPost('fotoInputNombre');
+                $nombre = $_FILES['fotoInputFotobinaria']['name'];
+
+//                $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
+                $fotobinaria = $_FILES['fotoInputFotobinaria']['tmp_name'];
+$data = file_get_contents($imagen_temporal);
+//$fotobinaria = mysql_escape_string($data);
+
+//                $tipo = $this->request->getPost('fotoInputTipo');
+                $tipo = $_FILES['fotoInputFotobinaria']['type'];
+
                 $valor = array('id' => $id
                                 ,'nombre' => $nombre
-                                ,'fotobinaria' => $fotobinaria
+                                //,'fotobinaria' => $fotobinaria
+,'fotobinaria' => $data
                                 ,'tipo' => $tipo);
 
                 //Obtenemos la url

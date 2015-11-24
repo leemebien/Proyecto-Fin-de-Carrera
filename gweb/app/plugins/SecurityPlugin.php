@@ -45,6 +45,7 @@ class SecurityPlugin extends Plugin
 										'usuario' => array('mantenimiento'),
 										'rol' => array('mantenimiento'),
 										'tipo' => array('mantenimiento'),
+										'foto' => array('mantenimiento'),
 										'entidad' => array('index', 'operacionalumno'));
 
 			//Añadimos las alreas

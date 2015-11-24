@@ -903,6 +903,7 @@ class Elements extends ComponentBase
 
                 echo $this->tag->form(array("foto/mantenimiento", 
                                                 "method" => "POST",
+                                                "enctype" => "multipart/form-data",
                                                 "class" => "table-responsive",
                                                 "style" => "height: 200px"));
 
@@ -1555,6 +1556,7 @@ return $this->forward('index/index');
 */
                 //Realizamos la llamada al API REST y Obtenemos la respuesta
                 $json = file_get_contents($url, false, $contexto);
+//die($json);
 /*$this->flash->error($json);  
 return $this->forward('index/index');
 */
@@ -1594,6 +1596,11 @@ return $this->forward('index/index');
                         //        <td style='width: 300px;'>";
                         echo "<tr style='display: table-row; vertical-align: inherit;' data-id=" . $f->getId() . ">
                                 <td style='width: 300px;'>";
+                        $ti = $f->getTipo();
+                        $im = $f->getFotobinaria();
+//                        header("Content-type: $tipo");
+  //                      echo $f->getFotobinaria();
+echo "<img src='/library/imagen.php?imagen=". $im .";tipo_imagen=". $ti ."'/>";
                         echo "foto";
                         echo "</td><td style='width: 200px;'>";
                         echo $f->getNombre();
@@ -1643,7 +1650,7 @@ echo "',
 
             $('#fotoInputId').val(resultado.id);
             $('#fotoInputNombre').val(resultado.nombre);
-            $('#fotoInputFotobinaria').val(resultado.fotobinaria);
+            //$('#fotoInputFotobinaria').val(resultado.nombre);
             $('#fotoInputTipo').val(resultado.tipo);
         })
         .fail( function(resultado) {

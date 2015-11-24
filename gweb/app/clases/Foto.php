@@ -75,7 +75,7 @@ class Foto extends ClaseAbstracta
     */
     public function getFotobinaria()
     {
-        return $this->nombre;
+        return $this->fotobinaria;
     }
 
     /**

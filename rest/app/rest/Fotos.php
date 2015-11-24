@@ -44,7 +44,7 @@
 		$datoenvio = new Datoenvio();
 		$datoenvio->obtenerDatos($dato);
 
-		//Obtenemos la Sesion y la informacion
+		//Obtenemos la Sesion y la date_interval_format()acion
 		$sesion = $datoenvio->getSesion();
 		$usuario = $datoenvio->getDato();
 
@@ -56,6 +56,7 @@
 			//Obtenemos listado de usuarios
 			$foto = new Foto();
 			$arrayFotos = $foto->getListado();
+//return $arrayFotos;
 
 			//Guardamos en Log
 
