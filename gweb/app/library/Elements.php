@@ -1598,9 +1598,84 @@ return $this->forward('index/index');
                                 <td style='width: 300px;'>";
                         $ti = $f->getTipo();
                         $im = $f->getFotobinaria();
+                        $a = array('im' => $im,
+                                    'ti' => $ti);
+/*
+$d = new Datoenvio();
+$dt = $d->enviarDatos($sesion, $f);
+
+$dta = array('dato' => $dt
+                ,'status' => 'TO_GETLIST'
+                ,'message' => 'Obtener listado fotos.');
+
+$json = json_encode($dta);
+//echo $json;
+//echo "<img src='../app/library/imagen.php?a=". $json ."'/>";
+
+//echo "<img src='../img/imagen.php?a=". $json ."'/>";
+//a//echo "<img src='../app/library/imagen.php?a=". $f ."'/>";
+echo "<img src='../app/library/imagen.php?a=". $json ."'/>";
+*/
+/*
+$crypt = new \Phalcon\Crypt();
+$tiec = $crypt->encrypt($ti, "samuelmoralesmangas27979");
+$imec = $crypt->encrypt($im, "samuelmoralesmangas27979");
+echo "<img src='../public/img/imagen.php?imagen=". $imec .";tipo=". $tiec ."'/>";
+*/
+/*
+$dta = array('imagen' => $im
+                ,'tipo' => $ti);
+*/
+/*
+$dta = array('imagen' => $im
+                ,'tipo' => $ti);
+
+$sdta = serialize($dta);
+
+
+$a='';
+    for ($i=0; $i < strlen($sdta); $i++){
+        $a .= dechex(ord($sdta[$i]));
+    }
+
+$json = $a;
+//echo $a;
+//$json = json_encode($a);
+
+//echo "<img src='../public/img/imagen.php?id=". $f->getId() ."'/>";
+//echo "<img src='../app/library/imagen.php?id=". $f->getId() ."'/>";
+//echo "<img src='../app/views/trabajosu/imagen.phtml?id=". $f->getId() ."'/>";
+
+*/
+
+
+//echo " Id: ".$f->getId();
+//echo " Tipo: ".$f->getTipo();
+//echo " Codigo: ".$f->getFotobinaria();
+//$a = serialize($a);
+//$a = serialize($f);
+
+//$a = json_encode($f);
+//echo " a json: ".$a;
+
 //                        header("Content-type: $tipo");
   //                      echo $f->getFotobinaria();
-echo "<img src='/library/imagen.php?imagen=". $im .";tipo_imagen=". $ti ."'/>";
+//echo "<img src='/library/imagen.php?imagen=". $im .";tipo_imagen=". $ti ."'/>";
+
+//echo "<img src='../app/library/imagen.php?a=". $a ."'/>";
+//die($a);
+//echo "<img src='foto/imagen?a=". $a ."'/>";
+
+//a//echo "<img src='../app/library/imagen.php?a=". $a ."'/>";
+
+//echo "<img src='/imagen.php?f=". $f ."'/>";
+
+//echo "<img src='". $im ."'/>";
+
+//header("Content-type:$ti");
+//echo $im;
+
+//$this->montarImagen($a);
                         echo "foto";
                         echo "</td><td style='width: 200px;'>";
                         echo $f->getNombre();

@@ -121,11 +121,11 @@ $data = file_get_contents($fotobinaria);
                 $tipo = $this->request->getPost('fotoInputTipo');
 
 //                $nombre = $this->request->getPost('fotoInputNombre');
-                $nombre = $_FILES['fotoInputFotobinaria']['name'];
+                //$nombre = $_FILES['fotoInputFotobinaria']['name'];
 
 //                $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
                 $fotobinaria = $_FILES['fotoInputFotobinaria']['tmp_name'];
-$data = file_get_contents($imagen_temporal);
+$data = file_get_contents($fotobinaria);
 //$fotobinaria = mysql_escape_string($data);
 
 //                $tipo = $this->request->getPost('fotoInputTipo');
@@ -152,11 +152,11 @@ $data = file_get_contents($imagen_temporal);
                 $tipo = $this->request->getPost('fotoInputTipo');
 
 //                $nombre = $this->request->getPost('fotoInputNombre');
-                $nombre = $_FILES['fotoInputFotobinaria']['name'];
+                //$nombre = $_FILES['fotoInputFotobinaria']['name'];
 
 //                $fotobinaria = $this->request->getPost('fotoInputFotobinaria');
                 $fotobinaria = $_FILES['fotoInputFotobinaria']['tmp_name'];
-$data = file_get_contents($imagen_temporal);
+$data = file_get_contents($fotobinaria);
 //$fotobinaria = mysql_escape_string($data);
 
 //                $tipo = $this->request->getPost('fotoInputTipo');
