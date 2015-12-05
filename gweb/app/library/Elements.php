@@ -19,13 +19,13 @@ class Elements extends ComponentBase
     {
         $this->_menuCabeceraPublica = array('navbar-nav' => array('index' => array('caption' => 'Home',
                                                                                     'action' => 'index'),
-                                                                   'about' => array('caption' => 'About',
+                                                                   'about' => array('caption' => 'Nosotros',
                                                                                     'action' => 'index'),
                                                                     'blog' => array('caption' => 'Blog',
                                                                                     'action' => 'index'),
-                                                                    'contact' => array('caption' => 'Contact',
+                                                                    'contact' => array('caption' => 'Contacto',
                                                                                         'action' => 'index'),
-                                                                    'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                    'usuario' => array('caption' => 'Entrar',
                                                                                         'action' => 'login'),
                                                                 )
                                             );
@@ -34,13 +34,13 @@ class Elements extends ComponentBase
                                                                                     'action' => 'index'),
                                                                     'trabajo' => array('caption' => 'Trabajo',
                                                                                         'action' => 'index'),
-                                                                    'about' => array('caption' => 'About',
+                                                                    'about' => array('caption' => 'Nosotros',
                                                                                     'action' => 'index'),
                                                                     'blog' => array('caption' => 'Blog',
                                                                                     'action' => 'index'),
-                                                                    'contact' => array('caption' => 'Contact',
+                                                                    'contact' => array('caption' => 'Contacto',
                                                                                         'action' => 'index'),
-                                                                    'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                    'usuario' => array('caption' => 'Entrar',
                                                                                         'action' => 'login'),
                                                                 )
                                             );
@@ -49,13 +49,13 @@ class Elements extends ComponentBase
                                                                                         'action' => 'index'),
                                                                         'trabajopadre' => array('caption' => 'Padres',
                                                                                                 'action' => 'index'),
-                                                                        'about' => array('caption' => 'About',
+                                                                        'about' => array('caption' => 'Nosotros',
                                                                                         'action' => 'index'),
                                                                         'blog' => array('caption' => 'Blog',
                                                                                         'action' => 'index'),
-                                                                        'contact' => array('caption' => 'Contact',
+                                                                        'contact' => array('caption' => 'Contacto',
                                                                                             'action' => 'index'),
-                                                                        'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                        'usuario' => array('caption' => 'Entrar',
                                                                                             'action' => 'login'),
                                                                     )
                                                 );
@@ -64,13 +64,13 @@ class Elements extends ComponentBase
                                                                                         'action' => 'index'),
                                                                         'trabajoprofe' => array('caption' => 'Profes',
                                                                                                 'action' => 'index'),
-                                                                        'about' => array('caption' => 'About',
+                                                                        'about' => array('caption' => 'Nosotros',
                                                                                         'action' => 'index'),
                                                                         'blog' => array('caption' => 'Blog',
                                                                                         'action' => 'index'),
-                                                                        'contact' => array('caption' => 'Contact',
+                                                                        'contact' => array('caption' => 'Contacto',
                                                                                             'action' => 'index'),
-                                                                        'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                        'usuario' => array('caption' => 'Entrar',
                                                                                             'action' => 'login'),
                                                                     )
                                                 );
@@ -79,13 +79,13 @@ class Elements extends ComponentBase
                                                                                         'action' => 'index'),
                                                                         'trabajoadmin' => array('caption' => 'Administración',
                                                                                                 'action' => 'index'),
-                                                                        'about' => array('caption' => 'About',
+                                                                        'about' => array('caption' => 'Nosotros',
                                                                                         'action' => 'index'),
                                                                         'blog' => array('caption' => 'Blog',
                                                                                         'action' => 'index'),
-                                                                        'contact' => array('caption' => 'Contact',
+                                                                        'contact' => array('caption' => 'Contacto',
                                                                                             'action' => 'index'),
-                                                                        'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                        'usuario' => array('caption' => 'Entrar',
                                                                                             'action' => 'login'),
                                                                     )
                                                 );
@@ -94,13 +94,13 @@ class Elements extends ComponentBase
                                                                                     'action' => 'index'),
                                                                     'trabajoSU' => array('caption' => 'S.U.',
                                                                                             'action' => 'index'),
-                                                                    'about' => array('caption' => 'About',
+                                                                    'about' => array('caption' => 'Nosotros',
                                                                                     'action' => 'index'),
                                                                     'blog' => array('caption' => 'Blog',
                                                                                     'action' => 'index'),
-                                                                    'contact' => array('caption' => 'Contact',
+                                                                    'contact' => array('caption' => 'Contacto',
                                                                                         'action' => 'index'),
-                                                                    'usuario' => array('caption' => 'Log In/Sign Up',
+                                                                    'usuario' => array('caption' => 'Entrar',
                                                                                         'action' => 'login'),
                                                                 )
                                             );
@@ -265,13 +265,13 @@ class Elements extends ComponentBase
                     break;
 
                 default: 
-*/                    echo 'Business Casual';
+*/                    echo 'RATONCITOS';
 //                    break;
 //            }
         }
         else
         {
-            echo 'Business Casual';
+            echo 'RATONCITOS';
         }        
     }
 
@@ -296,13 +296,13 @@ class Elements extends ComponentBase
                     break;
 
                 default: 
-*/                    echo '3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890';
+*/                    echo 'Calle Dámaso Ruano, bajo 1 | 29570 Cartama, Málaga | 952 42 29 93';
 //                    break;
 //            }
         }
         else
         {
-            echo '3481 Melrose Place | Beverly Hills, CA 90210 | 123.456.7890';
+            echo 'Calle Dámaso Ruano, bajo 1 | 29570 Cartama, Málaga | 952 42 29 93';
         }
     }
 

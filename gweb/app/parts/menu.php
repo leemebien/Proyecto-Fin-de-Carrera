@@ -21,7 +21,7 @@
                 <span class="icon-bar"></span>
             </button>
             <!-- navbar-brand is hidden on larger screens, but visible when the menu is collapsed -->
-            <a class="navbar-brand" href="index/index.html">Business Casual</a>
+            <a class="navbar-brand" href="index/index.html">RATONCITOS</a>
         </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->

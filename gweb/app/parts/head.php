@@ -7,7 +7,7 @@
 <meta name="description" content=""/>
 <meta name="author" content=""/>
 
-<title>Business Casual - Start Bootstrap Theme</title>
+<title>Escuela Infantil Ratoncitos</title>
 
 <!-- CSS -->
 <?php $this->assets->outputCss(); ?>
